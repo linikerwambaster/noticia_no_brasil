@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cancelar inscrição — Panorama</title>
+<meta name="robots" content="noindex">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;0,6..72,700&family=Work+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --ink:#111111;
+    --ink-soft:#4a4a4a;
+    --paper:#f7f5f0;
+    --paper-raised:#ffffff;
+    --brasil:#c81e2c;
+    --brasil-dark:#8f1420;
+    --mundo:#0e3d7a;
+    --gold:#e0a526;
+    --shadow: 4px 4px 0 rgba(17,17,17,0.9);
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Work Sans', sans-serif;
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+  }
+  header{
+    border-bottom:3px solid var(--ink);
+    background:var(--paper-raised);
+    padding:18px 0;
+  }
+  .wrap{ max-width:600px; margin:0 auto; padding:0 24px; }
+  .logo{
+    font-family:'Archivo Black', sans-serif;
+    font-size:22px;
+  }
+  .logo .dot{ color:var(--brasil); }
+
+  main{
+    flex:1;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:50px 24px;
+  }
+  .card{
+    background:var(--paper-raised);
+    border:3px solid var(--ink);
+    box-shadow:var(--shadow);
+    padding:36px 30px;
+    max-width:460px;
+    width:100%;
+  }
+  .eyebrow{
+    display:inline-block;
+    background:var(--gold);
+    color:var(--ink);
+    font-weight:800;
+    font-size:11px;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    padding:5px 10px;
+    margin-bottom:14px;
+  }
+  h1{
+    font-family:'Newsreader', serif;
+    font-size:26px;
+    font-weight:600;
+    margin-bottom:10px;
+    line-height:1.2;
+  }
+  p{
+    color:var(--ink-soft);
+    font-size:14.5px;
+    margin-bottom:20px;
+  }
+  label{
+    display:block;
+    font-size:12px;
+    font-weight:700;
+    text-transform:uppercase;
+    letter-spacing:0.04em;
+    margin-bottom:6px;
+  }
+  input[type=email]{
+    width:100%;
+    padding:13px 14px;
+    border:2px solid var(--ink);
+    font-size:15px;
+    margin-bottom:14px;
+  }
+  input[type=email]:focus{ outline:3px solid var(--gold); outline-offset:0; }
+  button{
+    width:100%;
+    background:var(--ink);
+    color:#fff;
+    border:2px solid var(--ink);
+    font-weight:800;
+    font-size:14.5px;
+    padding:14px;
+    cursor:pointer;
+    transition:transform .15s ease, background .15s ease;
+  }
+  button:hover{ transform:translate(-2px,-2px); background:#000; }
+  button:active{ transform:translate(0,0); }
+
+  .state{ display:none; text-align:center; }
+  .state.show{ display:block; }
+  .state-icon{ font-size:34px; margin-bottom:10px; }
+  .state-success{ color:#1b4d1e; }
+  .state-error{ color:var(--brasil-dark); }
+
+  .fine{
+    font-size:12px;
+    color:#8c8c8c;
+    margin-top:18px;
+    text-align:center;
+  }
+  .fine a{ color:var(--ink-soft); }
+
+  footer{
+    text-align:center;
+    padding:20px;
+    font-size:12px;
+    color:#8c8c8c;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <a href="/index.html" class="logo">PANO<span class="dot">·</span>RAMA</a>
+  </div>
+</header>
+
+<main>
+  <div class="card">
+
+    <div id="state-form">
+      <span class="eyebrow">Cancelamento de inscrição</span>
+      <h1>Sentiremos sua falta.</h1>
+      <p>Confirme o email abaixo pra parar de receber as notícias diárias do Panorama. A remoção é imediata.</p>
+
+      <form id="unsub-form">
+        <label for="email-unsub">Seu email cadastrado</label>
+        <input type="email" id="email-unsub" name="email" placeholder="voce@email.com" required>
+        <button type="submit">Cancelar inscrição</button>
+      </form>
+    </div>
+
+    <div class="state" id="state-loading">
+      <p style="text-align:center;">Processando o seu pedido...</p>
+    </div>
+
+    <div class="state" id="state-success">
+      <div class="state-icon state-success">✓</div>
+      <h1>Inscrição cancelada</h1>
+      <p>Você não receberá mais emails do Panorama. Se mudar de ideia, pode se cadastrar novamente quando quiser.</p>
+    </div>
+
+    <div class="state" id="state-error">
+      <div class="state-icon state-error">!</div>
+      <h1>Não conseguimos concluir</h1>
+      <p>Tente novamente em instantes. Se o problema continuar, responda a qualquer email nosso pedindo a remoção manual.</p>
+      <button onclick="location.reload()">Tentar novamente</button>
+    </div>
+
+    <div class="fine">
+      Dúvidas? Veja nossa <a href="/privacidade.html">Política de Privacidade</a>.
+    </div>
+  </div>
+</main>
+
+<footer>
+  © <span id="year"></span> Panorama Notícias.
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // ---------------------------------------------------------
+  // Mesmo webhook n8n usado no cadastro, mas com action=unsubscribe.
+  // No n8n, um único webhook pode rotear pelos dois: se vier "action":"unsubscribe",
+  // ele marca status=opted_out no Supabase; se vier "action":"signup", cadastra normalmente.
+  // ---------------------------------------------------------
+  const UNSUB_WEBHOOK_URL = "https://webhook.linikerwambaster.com.br/webhook/cadastro-panorama";
+
+  const formEl = document.getElementById('state-form');
+  const loadingEl = document.getElementById('state-loading');
+  const successEl = document.getElementById('state-success');
+  const errorEl = document.getElementById('state-error');
+
+  function showState(el){
+    [formEl, loadingEl, successEl, errorEl].forEach(e => e.classList.remove('show'));
+    // state-form não tem a classe .state, então trata separado
+    formEl.style.display = 'none';
+    [loadingEl, successEl, errorEl].forEach(e => e.style.display = 'none');
+    if(el === formEl){ formEl.style.display = 'block'; }
+    else { el.style.display = 'block'; el.classList.add('show'); }
+  }
+
+  // Se veio ?email=... na URL (link direto do email), preenche automaticamente
+  const params = new URLSearchParams(window.location.search);
+  const emailFromLink = params.get('email');
+  if(emailFromLink){
+    document.getElementById('email-unsub').value = emailFromLink;
+  }
+
+  document.getElementById('unsub-form').addEventListener('submit', async function(e){
+    e.preventDefault();
+    const email = document.getElementById('email-unsub').value.trim();
+    showState(loadingEl);
+
+    try{
+      const res = await fetch(UNSUB_WEBHOOK_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          action: 'unsubscribe',
+          email: email,
+          data: new Date().toISOString()
+        })
+      });
+
+      if(!res.ok) throw new Error('Falha ao cancelar');
+
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({ event: 'lead_opt_out' });
+
+      showState(successEl);
+
+    }catch(err){
+      console.error('Erro ao cancelar inscrição:', err);
+      showState(errorEl);
+    }
+  });
+
+  // Se o link já veio com email preenchido, opcionalmente auto-envia
+  // (deixado manual por padrão para exigir confirmação explícita do usuário)
+</script>
+
+</body>
+</html>

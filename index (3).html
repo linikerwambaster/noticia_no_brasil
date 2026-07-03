@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Panorama — Notícias do Brasil e do Mundo</title>
+<meta name="description" content="As principais notícias do Brasil e do mundo, direto no seu email, todos os dias.">
+
+<!-- Google Tag Manager (troque GTM-XXXXXXX pelo seu container) -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-XXXXXXX');</script>
+<!-- End Google Tag Manager -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;0,6..72,700;1,6..72,400;1,6..72,500&family=Work+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --ink:#111111;
+    --ink-soft:#4a4a4a;
+    --paper:#f7f5f0;
+    --paper-raised:#ffffff;
+    --line:#111111;
+    --brasil:#c81e2c;
+    --brasil-dark:#8f1420;
+    --mundo:#0e3d7a;
+    --mundo-dark:#092a56;
+    --gold:#e0a526;
+    --gold-dark:#a97a15;
+    --shadow: 4px 4px 0 rgba(17,17,17,0.9);
+    --shadow-sm: 3px 3px 0 rgba(17,17,17,0.9);
+    --radius: 2px;
+  }
+
+  *{box-sizing:border-box; margin:0; padding:0;}
+
+  html{scroll-behavior:smooth;}
+
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Work Sans', sans-serif;
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  h1,h2,h3,.headline{
+    font-family:'Newsreader', serif;
+    font-weight:600;
+    line-height:1.15;
+    letter-spacing:-0.01em;
+  }
+
+  a{color:inherit; text-decoration:none;}
+
+  img{max-width:100%; display:block;}
+
+  .wrap{
+    max-width:1180px;
+    margin:0 auto;
+    padding:0 24px;
+  }
+
+  /* ---------- UTILITY BAR ---------- */
+  .utility-bar{
+    background:var(--ink);
+    color:#fff;
+    font-size:12.5px;
+    letter-spacing:0.03em;
+    overflow:hidden;
+    white-space:nowrap;
+    position:relative;
+  }
+  .utility-inner{
+    display:flex;
+    align-items:center;
+    padding:7px 0;
+    max-width:1180px;
+    margin:0 auto;
+    padding-left:24px;
+    padding-right:24px;
+  }
+  .utility-date{
+    flex-shrink:0;
+    padding-right:18px;
+    border-right:1px solid rgba(255,255,255,0.25);
+    margin-right:18px;
+    font-weight:600;
+    text-transform:uppercase;
+  }
+  .ticker-viewport{
+    overflow:hidden;
+    flex:1;
+    mask-image: linear-gradient(90deg, transparent, #000 24px, #000 calc(100% - 40px), transparent);
+  }
+  .ticker-track{
+    display:inline-flex;
+    white-space:nowrap;
+    animation: ticker 32s linear infinite;
+  }
+  .ticker-track span{
+    margin-right:48px;
+    opacity:0.92;
+  }
+  .ticker-track span::before{
+    content:"● ";
+    color:var(--gold);
+  }
+  @keyframes ticker{
+    0%{ transform:translateX(0); }
+    100%{ transform:translateX(-50%); }
+  }
+
+  /* ---------- HEADER ---------- */
+  header{
+    background:var(--paper-raised);
+    border-bottom:3px solid var(--ink);
+    position:sticky;
+    top:0;
+    z-index:50;
+  }
+  .header-inner{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:18px 0;
+  }
+  .logo{
+    font-family:'Archivo Black', sans-serif;
+    font-size:26px;
+    letter-spacing:-0.01em;
+    display:flex;
+    align-items:baseline;
+    gap:2px;
+  }
+  .logo .dot{ color:var(--brasil); }
+  .logo-sub{
+    display:block;
+    font-family:'Work Sans', sans-serif;
+    font-size:10.5px;
+    font-weight:600;
+    letter-spacing:0.16em;
+    color:var(--ink-soft);
+    text-transform:uppercase;
+    margin-top:2px;
+  }
+  nav{
+    display:flex;
+    align-items:center;
+    gap:6px;
+  }
+  .nav-pill{
+    font-weight:700;
+    font-size:14px;
+    padding:8px 16px;
+    border-radius:999px;
+    border:2px solid var(--ink);
+  }
+  .nav-pill.brasil{ background:var(--brasil); color:#fff; border-color:var(--brasil-dark); }
+  .nav-pill.mundo{ background:var(--mundo); color:#fff; border-color:var(--mundo-dark); }
+  .nav-pill.ghost{ background:transparent; }
+  .cta-header{
+    display:none;
+  }
+  @media(min-width:720px){
+    .cta-header{
+      display:inline-block;
+      background:var(--ink);
+      color:#fff;
+      font-weight:700;
+      font-size:13.5px;
+      padding:11px 20px;
+      border-radius:999px;
+      box-shadow:var(--shadow-sm);
+      transition:transform .15s ease;
+    }
+    .cta-header:hover{ transform:translate(-2px,-2px); }
+  }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    padding:44px 0 36px;
+  }
+  .hero-grid{
+    display:grid;
+    grid-template-columns:1fr;
+    gap:24px;
+  }
+  @media(min-width:900px){
+    .hero-grid{ grid-template-columns:1.6fr 1fr; }
+  }
+  .hero-feature{
+    background:var(--paper-raised);
+    border:3px solid var(--ink);
+    box-shadow:var(--shadow);
+    overflow:hidden;
+    position:relative;
+  }
+  .hero-feature-media{
+    height:280px;
+    background:
+      radial-gradient(circle at 20% 20%, rgba(200,30,44,0.35), transparent 45%),
+      radial-gradient(circle at 80% 70%, rgba(14,61,122,0.4), transparent 50%),
+      linear-gradient(135deg, #1a1a1a, #313131);
+    position:relative;
+  }
+  .hero-feature-media::after{
+    content:"";
+    position:absolute; inset:0;
+    background-image: repeating-linear-gradient(45deg, rgba(255,255,255,0.03) 0 2px, transparent 2px 6px);
+  }
+  .tag{
+    display:inline-block;
+    font-size:11.5px;
+    font-weight:800;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    padding:5px 11px;
+    color:#fff;
+  }
+  .tag.brasil{ background:var(--brasil); }
+  .tag.mundo{ background:var(--mundo); }
+  .tag-float{
+    position:absolute;
+    top:16px; left:16px;
+  }
+  .hero-feature-body{
+    padding:26px;
+  }
+  .hero-feature-body .headline{
+    font-size:clamp(24px,3.4vw,34px);
+    margin-bottom:12px;
+  }
+  .hero-feature-body p{
+    color:var(--ink-soft);
+    font-size:15.5px;
+    margin-bottom:14px;
+  }
+  .byline{
+    font-size:12.5px;
+    color:var(--ink-soft);
+    font-weight:600;
+    text-transform:uppercase;
+    letter-spacing:0.03em;
+  }
+
+  .hero-list{
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+  }
+  .hero-list-item{
+    background:var(--paper-raised);
+    border:2px solid var(--ink);
+    padding:14px 16px;
+    display:flex;
+    gap:12px;
+    align-items:flex-start;
+    transition:transform .15s ease;
+  }
+  .hero-list-item:hover{ transform:translateX(3px); }
+  .hero-list-num{
+    font-family:'Archivo Black', sans-serif;
+    font-size:20px;
+    color:var(--gold-dark);
+    flex-shrink:0;
+    line-height:1.2;
+  }
+  .hero-list-item h4{
+    font-family:'Newsreader', serif;
+    font-size:16px;
+    font-weight:600;
+    margin-bottom:4px;
+  }
+  .hero-list-item .tag{ font-size:10px; padding:3px 8px; }
+
+  /* ---------- SIGNUP BLOCK (main capture) ---------- */
+  .signup-block{
+    background:var(--ink);
+    color:#fff;
+    border:3px solid var(--ink);
+    box-shadow:var(--shadow);
+    padding:38px 30px;
+    margin:36px 0 8px;
+    position:relative;
+    overflow:hidden;
+  }
+  .signup-block::before{
+    content:"";
+    position:absolute;
+    top:-60px; right:-60px;
+    width:220px; height:220px;
+    border-radius:50%;
+    background:radial-gradient(circle, var(--brasil) 0%, transparent 70%);
+    opacity:0.5;
+  }
+  .signup-block::after{
+    content:"";
+    position:absolute;
+    bottom:-80px; left:-40px;
+    width:220px; height:220px;
+    border-radius:50%;
+    background:radial-gradient(circle, var(--mundo) 0%, transparent 70%);
+    opacity:0.55;
+  }
+  .signup-inner{
+    position:relative;
+    z-index:2;
+    display:grid;
+    gap:22px;
+  }
+  @media(min-width:860px){
+    .signup-inner{
+      grid-template-columns:1.1fr 1fr;
+      align-items:center;
+    }
+  }
+  .signup-eyebrow{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    background:var(--gold);
+    color:var(--ink);
+    font-weight:800;
+    font-size:11.5px;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    padding:5px 11px;
+    margin-bottom:14px;
+  }
+  .signup-block h2{
+    font-size:clamp(24px,3vw,32px);
+    margin-bottom:10px;
+  }
+  .signup-block p{
+    color:#d8d8d8;
+    font-size:15px;
+    max-width:480px;
+  }
+  .signup-stats{
+    display:flex;
+    gap:22px;
+    margin-top:18px;
+  }
+  .signup-stats div{
+    font-family:'Archivo Black', sans-serif;
+    font-size:22px;
+    color:#fff;
+  }
+  .signup-stats span{
+    display:block;
+    font-family:'Work Sans', sans-serif;
+    font-size:11px;
+    font-weight:600;
+    color:#a9a9a9;
+    text-transform:uppercase;
+    letter-spacing:0.04em;
+    margin-top:2px;
+  }
+
+  .signup-form-card{
+    background:var(--paper-raised);
+    color:var(--ink);
+    padding:24px;
+    border:2px solid var(--ink);
+  }
+  .signup-form-card label{
+    display:block;
+    font-size:12px;
+    font-weight:700;
+    text-transform:uppercase;
+    letter-spacing:0.04em;
+    margin-bottom:6px;
+  }
+  .form-row{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+  }
+  .form-row input[type=email]{
+    flex:1;
+    min-width:180px;
+    padding:13px 14px;
+    border:2px solid var(--ink);
+    font-family:'Work Sans', sans-serif;
+    font-size:15px;
+    background:#fff;
+  }
+  .form-row input[type=email]:focus{ outline:3px solid var(--gold); outline-offset:0; }
+  .btn-submit{
+    background:var(--brasil);
+    color:#fff;
+    border:2px solid var(--brasil-dark);
+    font-weight:800;
+    font-size:14.5px;
+    padding:13px 22px;
+    cursor:pointer;
+    letter-spacing:0.01em;
+    transition:transform .15s ease, background .15s ease;
+    box-shadow:var(--shadow-sm);
+  }
+  .btn-submit:hover{ transform:translate(-2px,-2px); background:var(--brasil-dark); }
+  .btn-submit:active{ transform:translate(0,0); box-shadow:none; }
+  .form-fine{
+    font-size:11.5px;
+    color:var(--ink-soft);
+    margin-top:10px;
+  }
+  .form-success{
+    display:none;
+    padding:14px;
+    background:#eef7ee;
+    border:2px solid #2e7d32;
+    color:#1b4d1e;
+    font-weight:600;
+    font-size:14px;
+  }
+  .form-error{
+    display:none;
+    padding:10px 12px;
+    background:#fdecec;
+    border:2px solid var(--brasil);
+    color:var(--brasil-dark);
+    font-weight:600;
+    font-size:13px;
+    margin-top:10px;
+  }
+
+  /* ---------- SECTIONS ---------- */
+  .section{
+    padding:44px 0;
+  }
+  .section-head{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-bottom:22px;
+    border-bottom:3px solid var(--ink);
+    padding-bottom:10px;
+  }
+  .section-title{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-family:'Archivo Black', sans-serif;
+    font-size:22px;
+  }
+  .section-title .swatch{
+    width:16px; height:16px;
+    display:inline-block;
+  }
+  .swatch.brasil{ background:var(--brasil); }
+  .swatch.mundo{ background:var(--mundo); }
+
+  .grid-cards{
+    display:grid;
+    grid-template-columns:repeat(auto-fill, minmax(260px, 1fr));
+    gap:20px;
+  }
+  .card{
+    background:var(--paper-raised);
+    border:2px solid var(--ink);
+    display:flex;
+    flex-direction:column;
+    transition:transform .15s ease, box-shadow .15s ease;
+  }
+  .card:hover{ transform:translate(-3px,-3px); box-shadow:var(--shadow-sm); }
+  .card-media{
+    height:150px;
+    position:relative;
+  }
+  .card-media.b1{ background:linear-gradient(140deg,#7a1017,#c81e2c); }
+  .card-media.b2{ background:linear-gradient(140deg,#8f1420,#e0454f); }
+  .card-media.b3{ background:linear-gradient(140deg,#5c0d15,#a01822); }
+  .card-media.m1{ background:linear-gradient(140deg,#06213f,#0e3d7a); }
+  .card-media.m2{ background:linear-gradient(140deg,#092a56,#1c5cad); }
+  .card-media.m3{ background:linear-gradient(140deg,#031630,#0e3d7a); }
+  .card-body{
+    padding:16px;
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+    flex:1;
+  }
+  .card-body h3{
+    font-size:17px;
+  }
+  .card-body p{
+    font-size:13.5px;
+    color:var(--ink-soft);
+  }
+  .card-meta{
+    margin-top:auto;
+    font-size:11.5px;
+    color:var(--ink-soft);
+    font-weight:600;
+    text-transform:uppercase;
+    display:flex;
+    justify-content:space-between;
+  }
+
+  /* ---------- STICKY BAR ---------- */
+  .sticky-bar{
+    position:fixed;
+    left:0; right:0; bottom:-140px;
+    background:var(--ink);
+    color:#fff;
+    border-top:3px solid var(--gold);
+    padding:16px 0;
+    z-index:80;
+    transition:bottom .35s ease;
+  }
+  .sticky-bar.show{ bottom:0; }
+  .sticky-inner{
+    display:flex;
+    align-items:center;
+    gap:16px;
+    flex-wrap:wrap;
+  }
+  .sticky-text{
+    flex:1;
+    min-width:200px;
+  }
+  .sticky-text strong{ display:block; font-size:15px; }
+  .sticky-text span{ font-size:12.5px; color:#b7b7b7; }
+  .sticky-form{
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
+    flex:1;
+    min-width:260px;
+  }
+  .sticky-form input[type=email]{
+    flex:1;
+    min-width:160px;
+    padding:10px 12px;
+    border:2px solid #fff;
+    background:#fff;
+    font-size:14px;
+  }
+  .sticky-close{
+    background:transparent;
+    border:none;
+    color:#fff;
+    font-size:20px;
+    cursor:pointer;
+    padding:0 6px;
+    line-height:1;
+    opacity:0.7;
+  }
+  .sticky-close:hover{ opacity:1; }
+
+  /* ---------- FOOTER ---------- */
+  footer{
+    background:var(--ink);
+    color:#c9c9c9;
+    padding:40px 0 26px;
+    margin-top:20px;
+  }
+  .footer-inner{
+    display:flex;
+    flex-direction:column;
+    gap:18px;
+  }
+  @media(min-width:720px){
+    .footer-inner{
+      flex-direction:row;
+      justify-content:space-between;
+      align-items:flex-start;
+    }
+  }
+  .footer-logo{
+    font-family:'Archivo Black', sans-serif;
+    color:#fff;
+    font-size:20px;
+    margin-bottom:8px;
+  }
+  .footer-cols{
+    display:flex;
+    gap:40px;
+    flex-wrap:wrap;
+  }
+  .footer-col h5{
+    font-size:12px;
+    text-transform:uppercase;
+    letter-spacing:0.05em;
+    color:#8c8c8c;
+    margin-bottom:10px;
+  }
+  .footer-col a{
+    display:block;
+    font-size:13.5px;
+    margin-bottom:7px;
+    color:#d4d4d4;
+  }
+  .footer-col a:hover{ color:#fff; }
+  .footer-bottom{
+    border-top:1px solid #333;
+    margin-top:26px;
+    padding-top:16px;
+    font-size:12px;
+    color:#7f7f7f;
+    display:flex;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    gap:10px;
+  }
+</style>
+</head>
+<body>
+
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-XXXXXXX"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+<div class="utility-bar">
+  <div class="utility-inner">
+    <div class="utility-date" id="live-date">—</div>
+    <div class="ticker-viewport">
+      <div class="ticker-track" id="ticker-track">
+        <span>Congresso retoma pauta econômica nesta semana</span>
+        <span>Mercado internacional reage a dados de inflação</span>
+        <span>Assine grátis e receba o resumo do dia às 7h</span>
+        <span>Cúpula internacional discute acordo comercial</span>
+        <span>Novo levantamento aponta tendência para o setor produtivo</span>
+        <span>Congresso retoma pauta econômica nesta semana</span>
+        <span>Mercado internacional reage a dados de inflação</span>
+        <span>Assine grátis e receba o resumo do dia às 7h</span>
+        <span>Cúpula internacional discute acordo comercial</span>
+        <span>Novo levantamento aponta tendência para o setor produtivo</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<header>
+  <div class="wrap header-inner">
+    <a href="#topo" class="logo">
+      PANO<span class="dot">·</span>RAMA
+      <span class="logo-sub" style="margin-left:8px;">Brasil &amp; Mundo</span>
+    </a>
+    <nav>
+      <a href="#brasil" class="nav-pill brasil">Brasil</a>
+      <a href="#mundo" class="nav-pill mundo">Mundo</a>
+      <a href="#assinar" class="cta-header">Assinar grátis</a>
+    </nav>
+  </div>
+</header>
+
+<main id="topo">
+  <div class="wrap hero">
+    <div class="hero-grid">
+      <article class="hero-feature">
+        <div class="hero-feature-media">
+          <span class="tag brasil tag-float">Brasil</span>
+        </div>
+        <div class="hero-feature-body">
+          <h1 class="headline">O resumo do dia, direto ao ponto: o que realmente importa em menos de 5 minutos de leitura</h1>
+          <p>Cada manhã, selecionamos o que aconteceu de mais relevante no Brasil e no mundo — sem enrolação, sem viés, sem precisar abrir dez abas diferentes.</p>
+          <div class="byline">Edição de hoje · Panorama Redação</div>
+        </div>
+      </article>
+
+      <div class="hero-list">
+        <div class="hero-list-item">
+          <div class="hero-list-num">01</div>
+          <div>
+            <span class="tag mundo">Mundo</span>
+            <h4>Lideranças internacionais se reúnem para discutir novo acordo comercial</h4>
+          </div>
+        </div>
+        <div class="hero-list-item">
+          <div class="hero-list-num">02</div>
+          <div>
+            <span class="tag brasil">Brasil</span>
+            <h4>Indicadores econômicos mostram sinais de estabilidade no trimestre</h4>
+          </div>
+        </div>
+        <div class="hero-list-item">
+          <div class="hero-list-num">03</div>
+          <div>
+            <span class="tag mundo">Mundo</span>
+            <h4>Novo estudo global aponta mudanças no comportamento de consumo</h4>
+          </div>
+        </div>
+        <div class="hero-list-item">
+          <div class="hero-list-num">04</div>
+          <div>
+            <span class="tag brasil">Brasil</span>
+            <h4>Setor produtivo brasileiro registra movimento de recuperação</h4>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SIGNUP PRINCIPAL -->
+    <div class="signup-block" id="assinar">
+      <div class="signup-inner">
+        <div>
+          <span class="signup-eyebrow">★ Gratuito · direto no seu email</span>
+          <h2>As notícias do Brasil e do mundo, resumidas para você todo dia</h2>
+          <p>Sem precisar abrir dez sites. Um email por dia com o que realmente importa — Brasil e mundo, direto e sem enrolação.</p>
+          <div class="signup-stats">
+            <div>50mil<span>Leitores cadastrados</span></div>
+            <div>7h<span>Chega toda manhã</span></div>
+            <div>100%<span>Grátis, sempre</span></div>
+          </div>
+        </div>
+
+        <div class="signup-form-card">
+          <form id="signup-form-main">
+            <label for="email-main">Seu melhor email</label>
+            <div class="form-row">
+              <input type="email" id="email-main" name="email" placeholder="voce@email.com" required>
+              <button type="submit" class="btn-submit">Quero receber</button>
+            </div>
+            <p class="form-fine">Você pode cancelar quando quiser, com um clique. Sem spam.</p>
+            <div class="form-error" id="form-error-main">Não foi possível concluir o cadastro. Tente novamente.</div>
+          </form>
+          <div class="form-success" id="form-success-main">✓ Cadastro confirmado! Fique de olho na sua caixa de entrada.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SEÇÃO BRASIL -->
+  <section class="section" id="brasil">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="section-title"><span class="swatch brasil"></span> Brasil</div>
+      </div>
+      <div class="grid-cards">
+        <article class="card">
+          <div class="card-media b1"><span class="tag brasil tag-float">Brasil</span></div>
+          <div class="card-body">
+            <h3>Governo anuncia pacote de medidas para estimular a economia local</h3>
+            <p>Proposta prevê incentivos para pequenos negócios e revisão de tributos setoriais.</p>
+            <div class="card-meta"><span>Economia</span><span>Há 2h</span></div>
+          </div>
+        </article>
+        <article class="card">
+          <div class="card-media b2"><span class="tag brasil tag-float">Brasil</span></div>
+          <div class="card-body">
+            <h3>Estudo revela mudança no perfil de consumo das famílias brasileiras</h3>
+            <p>Levantamento aponta prioridade crescente para serviços digitais e educação.</p>
+            <div class="card-meta"><span>Sociedade</span><span>Há 4h</span></div>
+          </div>
+        </article>
+        <article class="card">
+          <div class="card-media b3"><span class="tag brasil tag-float">Brasil</span></div>
+          <div class="card-body">
+            <h3>Infraestrutura: novos investimentos são anunciados para rodovias federais</h3>
+            <p>Obras devem começar ainda este semestre em três regiões do país.</p>
+            <div class="card-meta"><span>Infraestrutura</span><span>Há 6h</span></div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- SEÇÃO MUNDO -->
+  <section class="section" id="mundo" style="background:var(--paper-raised); border-top:3px solid var(--ink); border-bottom:3px solid var(--ink);">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="section-title"><span class="swatch mundo"></span> Mundo</div>
+      </div>
+      <div class="grid-cards">
+        <article class="card">
+          <div class="card-media m1"><span class="tag mundo tag-float">Mundo</span></div>
+          <div class="card-body">
+            <h3>Cúpula internacional discute cooperação em comércio e tecnologia</h3>
+            <p>Representantes de mais de 20 países participam de encontro nesta semana.</p>
+            <div class="card-meta"><span>Diplomacia</span><span>Há 1h</span></div>
+          </div>
+        </article>
+        <article class="card">
+          <div class="card-media m2"><span class="tag mundo tag-float">Mundo</span></div>
+          <div class="card-body">
+            <h3>Bancos centrais monitoram cenário global após novos dados de inflação</h3>
+            <p>Analistas avaliam possíveis impactos sobre juros nos próximos meses.</p>
+            <div class="card-meta"><span>Economia</span><span>Há 3h</span></div>
+          </div>
+        </article>
+        <article class="card">
+          <div class="card-media m3"><span class="tag mundo tag-float">Mundo</span></div>
+          <div class="card-body">
+            <h3>Relatório aponta avanços em cooperação científica internacional</h3>
+            <p>Parcerias entre universidades ganham força em pesquisas conjuntas.</p>
+            <div class="card-meta"><span>Ciência</span><span>Há 8h</span></div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap" style="padding:36px 0;">
+    <p style="text-align:center; color:var(--ink-soft); font-size:13px;">
+      Conteúdo de demonstração — os cards acima serão substituídos pelo feed real de notícias.
+    </p>
+  </div>
+</main>
+
+<!-- BARRA STICKY -->
+<div class="sticky-bar" id="sticky-bar">
+  <div class="wrap sticky-inner">
+    <div class="sticky-text">
+      <strong>Não perca as notícias de hoje</strong>
+      <span>Cadastre-se grátis, leva 5 segundos.</span>
+    </div>
+    <form class="sticky-form" id="signup-form-sticky">
+      <input type="email" id="email-sticky" name="email" placeholder="voce@email.com" required>
+      <button type="submit" class="btn-submit">Quero receber</button>
+    </form>
+    <button class="sticky-close" id="sticky-close" aria-label="Fechar">×</button>
+  </div>
+</div>
+
+<footer>
+  <div class="wrap footer-inner">
+    <div>
+      <div class="footer-logo">PANORAMA</div>
+      <p style="font-size:13px; max-width:260px;">Notícias do Brasil e do mundo, resumidas todos os dias no seu email.</p>
+    </div>
+    <div class="footer-cols">
+      <div class="footer-col">
+        <h5>Navegar</h5>
+        <a href="#brasil">Brasil</a>
+        <a href="#mundo">Mundo</a>
+        <a href="#assinar">Assinar</a>
+      </div>
+      <div class="footer-col">
+        <h5>Legal</h5>
+        <a href="/privacidade.html">Política de Privacidade</a>
+        <a href="/unsubscribe.html">Cancelar inscrição</a>
+      </div>
+    </div>
+  </div>
+  <div class="wrap footer-bottom">
+    <span>© <span id="year"></span> Panorama Notícias. Todos os direitos reservados.</span>
+    <span>Feito com dados que você mesmo escolheu compartilhar.</span>
+  </div>
+</footer>
+
+<script>
+  // Ano dinâmico
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // Data ao vivo
+  function updateDate(){
+    const d = new Date();
+    const opts = { weekday:'long', day:'2-digit', month:'long' };
+    let txt = d.toLocaleDateString('pt-BR', opts);
+    txt = txt.charAt(0).toUpperCase() + txt.slice(1);
+    document.getElementById('live-date').textContent = txt;
+  }
+  updateDate();
+
+  // ---------------------------------------------------------
+  // CONFIGURAÇÃO DO WEBHOOK DE CADASTRO
+  // Troque pela URL do seu webhook n8n (ex: https://webhook.linikerwambaster.com.br/webhook/cadastro-panorama)
+  // ---------------------------------------------------------
+  const SIGNUP_WEBHOOK_URL = "https://webhook.linikerwambaster.com.br/webhook/cadastro-panorama";
+
+  async function handleSignup(email, formEl, successEl, errorEl){
+    if(errorEl) errorEl.style.display = 'none';
+    try{
+      const res = await fetch(SIGNUP_WEBHOOK_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email: email,
+          origem: 'lp-panorama',
+          pagina: window.location.href,
+          data: new Date().toISOString()
+        })
+      });
+
+      if(!res.ok) throw new Error('Falha no cadastro');
+
+      // Dispara evento pro GTM/GA4/Meta
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({ event: 'lead_cadastro', email_domain: email.split('@')[1] || '' });
+
+      localStorage.setItem('panorama_cadastrado', '1');
+      if(formEl) formEl.style.display = 'none';
+      if(successEl) successEl.style.display = 'block';
+
+    }catch(err){
+      if(errorEl) errorEl.style.display = 'block';
+      console.error('Erro no cadastro:', err);
+    }
+  }
+
+  // Form principal
+  const formMain = document.getElementById('signup-form-main');
+  formMain.addEventListener('submit', function(e){
+    e.preventDefault();
+    const email = document.getElementById('email-main').value.trim();
+    handleSignup(
+      email,
+      formMain,
+      document.getElementById('form-success-main'),
+      document.getElementById('form-error-main')
+    );
+  });
+
+  // Form sticky
+  const formSticky = document.getElementById('signup-form-sticky');
+  formSticky.addEventListener('submit', function(e){
+    e.preventDefault();
+    const email = document.getElementById('email-sticky').value.trim();
+    handleSignup(email, formSticky, null, null);
+    // feedback simples inline pro sticky
+    formSticky.innerHTML = '<span style="font-weight:700; padding:10px 0;">✓ Cadastro confirmado!</span>';
+  });
+
+  // Barra sticky: mostra ao rolar, some se já cadastrado ou fechado
+  const stickyBar = document.getElementById('sticky-bar');
+  const stickyClose = document.getElementById('sticky-close');
+  let stickyDismissed = sessionStorage.getItem('panorama_sticky_closed') === '1';
+  let jaCadastrado = localStorage.getItem('panorama_cadastrado') === '1';
+
+  window.addEventListener('scroll', function(){
+    if(stickyDismissed || jaCadastrado) return;
+    if(window.scrollY > 700){
+      stickyBar.classList.add('show');
+    }
+  });
+
+  stickyClose.addEventListener('click', function(){
+    stickyBar.classList.remove('show');
+    stickyDismissed = true;
+    sessionStorage.setItem('panorama_sticky_closed', '1');
+  });
+</script>
+
+</body>
+</html>
