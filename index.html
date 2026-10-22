@@ -3,8 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Panorama — Notícias do Brasil e do Mundo</title>
-<meta name="description" content="As principais notícias do Brasil e do mundo, direto no seu email, todos os dias.">
+<title>Panorama — Notícias do Brasil e do Mundo, todo dia no seu email</title>
+<meta name="description" content="O que está em alta no Brasil e no mundo agora, com as manchetes de vários veículos reunidas em um só lugar. Receba o resumo por email, de graça.">
+<meta name="theme-color" content="#100F0D">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Panorama — Notícias do Brasil e do Mundo">
+<meta property="og:description" content="O que está em alta agora, reunido de vários veículos. Receba por email, de graça.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23100F0D'/%3E%3Ccircle cx='32' cy='32' r='17' fill='%23FFD60A'/%3E%3C/svg%3E">
 
 <!-- Google Tag Manager (troque GTM-XXXXXXX pelo seu container) -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -16,928 +21,761 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;0,6..72,700;1,6..72,400;1,6..72,500&family=Work+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@800;900&family=Fraunces:opsz,wght,SOFT,WONK@9..144,400..900,0..100,0..1&family=DM+Mono:wght@400;500&family=Hanken+Grotesk:wght@400;500;700;800&display=swap" rel="stylesheet">
 
 <style>
   :root{
-    --ink:#111111;
-    --ink-soft:#4a4a4a;
-    --paper:#f7f5f0;
-    --paper-raised:#ffffff;
-    --line:#111111;
-    --brasil:#c81e2c;
-    --brasil-dark:#8f1420;
-    --mundo:#0e3d7a;
-    --mundo-dark:#092a56;
-    --gold:#e0a526;
-    --gold-dark:#a97a15;
-    --shadow: 4px 4px 0 rgba(17,17,17,0.9);
-    --shadow-sm: 3px 3px 0 rgba(17,17,17,0.9);
-    --radius: 2px;
+    --tinta:#100F0D;
+    --papel:#F2EBDC;
+    --papel-2:#E8DFCA;
+    --verde:#0B7A43;
+    --verde-claro:#3FD08A;
+    --azul:#2B3CFF;
+    --azul-claro:#8A95FF;
+    --brasa:#FF4A1C;
+    --sol:#FFD60A;
+    --mudo:#5B564C;
+
+    /* >>> TROQUE AQUI a fonte de destaque (logo, números e títulos de seção) <<<
+       Depois de trocar, ajuste também o link do Google Fonts lá em cima. */
+    --font-display:"Big Shoulders Display","Arial Narrow",Impact,sans-serif;
+
+    --font-head:"Fraunces",Georgia,serif;
+    --font-ui:"Hanken Grotesk",system-ui,sans-serif;
+    --font-mono:"DM Mono",ui-monospace,Menlo,monospace;
+    --pad:clamp(16px,4vw,40px);
+    --max:1320px;
   }
 
-  *{box-sizing:border-box; margin:0; padding:0;}
-
-  html{scroll-behavior:smooth;}
-
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth;scroll-padding-top:16px}
   body{
-    background:var(--paper);
-    color:var(--ink);
-    font-family:'Work Sans', sans-serif;
+    background:var(--papel);
+    color:var(--tinta);
+    font-family:var(--font-ui);
     line-height:1.5;
     -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  a{color:inherit;text-decoration:none}
+  img{max-width:100%;display:block}
+  :focus-visible{outline:3px solid var(--brasa);outline-offset:3px}
+  .wrap{max-width:var(--max);margin:0 auto;padding-left:var(--pad);padding-right:var(--pad)}
+  .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+  /* granulado de papel */
+  .grain{
+    position:fixed;inset:0;z-index:200;pointer-events:none;opacity:.07;mix-blend-mode:multiply;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .9 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   }
 
-  h1,h2,h3,.headline{
-    font-family:'Newsreader', serif;
-    font-weight:600;
-    line-height:1.15;
-    letter-spacing:-0.01em;
+  /* ---------- barra superior ---------- */
+  .topbar{
+    background:var(--tinta);color:var(--papel);
+    font-family:var(--font-mono);font-size:12px;letter-spacing:.04em;text-transform:uppercase;
+    border-bottom:1px solid #2b2924;
   }
+  .topbar .wrap{display:flex;justify-content:space-between;align-items:center;gap:16px;padding-top:9px;padding-bottom:9px;flex-wrap:wrap}
+  .live{display:inline-flex;align-items:center;gap:8px}
+  .live i{width:8px;height:8px;border-radius:50%;background:var(--brasa);box-shadow:0 0 0 0 rgba(255,74,28,.7);animation:pulse 1.8s infinite}
+  .live.stale i{background:#8a8579;animation:none}
+  @keyframes pulse{70%{box-shadow:0 0 0 9px rgba(255,74,28,0)}100%{box-shadow:0 0 0 0 rgba(255,74,28,0)}}
 
-  a{color:inherit; text-decoration:none;}
-
-  img{max-width:100%; display:block;}
-
-  .wrap{
-    max-width:1180px;
-    margin:0 auto;
-    padding:0 24px;
+  /* ---------- masthead ---------- */
+  .masthead{background:var(--tinta);color:var(--papel);overflow:hidden;position:relative}
+  .masthead::after{ /* listras de luz */
+    content:"";position:absolute;right:-8%;top:-30%;width:46vw;height:46vw;border-radius:50%;
+    background:repeating-linear-gradient(0deg,rgba(255,214,10,.18) 0 3px,transparent 3px 14px);
+    mask-image:radial-gradient(circle,#000 35%,transparent 70%);-webkit-mask-image:radial-gradient(circle,#000 35%,transparent 70%);
+    pointer-events:none;
   }
-
-  /* ---------- UTILITY BAR ---------- */
-  .utility-bar{
-    background:var(--ink);
-    color:#fff;
-    font-size:12.5px;
-    letter-spacing:0.03em;
-    overflow:hidden;
-    white-space:nowrap;
-    position:relative;
-  }
-  .utility-inner{
-    display:flex;
-    align-items:center;
-    padding:7px 0;
-    max-width:1180px;
-    margin:0 auto;
-    padding-left:24px;
-    padding-right:24px;
-  }
-  .utility-date{
-    flex-shrink:0;
-    padding-right:18px;
-    border-right:1px solid rgba(255,255,255,0.25);
-    margin-right:18px;
-    font-weight:600;
-    text-transform:uppercase;
-  }
-  .ticker-viewport{
-    overflow:hidden;
-    flex:1;
-    mask-image: linear-gradient(90deg, transparent, #000 24px, #000 calc(100% - 40px), transparent);
-  }
-  .ticker-track{
-    display:inline-flex;
-    white-space:nowrap;
-    animation: ticker 32s linear infinite;
-  }
-  .ticker-track span{
-    margin-right:48px;
-    opacity:0.92;
-  }
-  .ticker-track span::before{
-    content:"● ";
-    color:var(--gold);
-  }
-  @keyframes ticker{
-    0%{ transform:translateX(0); }
-    100%{ transform:translateX(-50%); }
-  }
-
-  /* ---------- HEADER ---------- */
-  header{
-    background:var(--paper-raised);
-    border-bottom:3px solid var(--ink);
-    position:sticky;
-    top:0;
-    z-index:50;
-  }
-  .header-inner{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    padding:18px 0;
-  }
+  .masthead .wrap{position:relative;z-index:1;padding-top:clamp(20px,3vw,34px);padding-bottom:0}
+  .kicker{font-family:var(--font-mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--sol);display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+  .kicker::before{content:"";width:34px;height:2px;background:var(--sol)}
   .logo{
-    font-family:'Archivo Black', sans-serif;
-    font-size:26px;
-    letter-spacing:-0.01em;
-    display:flex;
-    align-items:baseline;
-    gap:2px;
+    font-family:var(--font-display);font-weight:900;text-transform:uppercase;
+    font-size:clamp(78px,21.5vw,320px);line-height:.78;letter-spacing:-.012em;
+    margin:clamp(8px,2vw,22px) 0 0 -.03em;display:flex;
   }
-  .logo .dot{ color:var(--brasil); }
-  .logo-sub{
-    display:block;
-    font-family:'Work Sans', sans-serif;
-    font-size:10.5px;
-    font-weight:600;
-    letter-spacing:0.16em;
-    color:var(--ink-soft);
-    text-transform:uppercase;
-    margin-top:2px;
+  .logo span{display:inline-block;overflow:hidden}
+  .logo span b{display:inline-block;font-weight:inherit;transform:translateY(105%);animation:letter .9s cubic-bezier(.2,.8,.2,1) forwards;animation-delay:calc(var(--k)*70ms + 120ms)}
+  .logo .sun b{color:var(--sol)}
+  @keyframes letter{to{transform:none}}
+  .mast-row{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;
+    border-top:1px solid #3a372f;margin-top:clamp(10px,1.4vw,18px);padding:14px 0}
+  .mast-row nav{display:flex;gap:6px;flex-wrap:wrap}
+  .mast-row nav a{font-family:var(--font-mono);font-size:13px;letter-spacing:.08em;text-transform:uppercase;
+    padding:8px 14px;border:1px solid #4a463c;border-radius:999px;transition:.2s}
+  .mast-row nav a:hover{background:var(--papel);color:var(--tinta);border-color:var(--papel)}
+  .btn-cta{
+    font-family:var(--font-ui);font-weight:800;font-size:14px;background:var(--sol);color:var(--tinta);
+    padding:11px 20px;border-radius:999px;transition:transform .15s, box-shadow .15s;box-shadow:0 0 0 0 var(--brasa)
   }
-  nav{
-    display:flex;
-    align-items:center;
-    gap:6px;
-  }
-  .nav-pill{
-    font-weight:700;
-    font-size:14px;
-    padding:8px 16px;
-    border-radius:999px;
-    border:2px solid var(--ink);
-  }
-  .nav-pill.brasil{ background:var(--brasil); color:#fff; border-color:var(--brasil-dark); }
-  .nav-pill.mundo{ background:var(--mundo); color:#fff; border-color:var(--mundo-dark); }
-  .nav-pill.ghost{ background:transparent; }
-  .cta-header{
-    display:none;
-  }
-  @media(min-width:720px){
-    .cta-header{
-      display:inline-block;
-      background:var(--ink);
-      color:#fff;
-      font-weight:700;
-      font-size:13.5px;
-      padding:11px 20px;
-      border-radius:999px;
-      box-shadow:var(--shadow-sm);
-      transition:transform .15s ease;
-    }
-    .cta-header:hover{ transform:translate(-2px,-2px); }
+  .btn-cta:hover{transform:translate(-2px,-2px);box-shadow:4px 4px 0 var(--brasa)}
+
+  /* ---------- buscas em alta (faixa) ---------- */
+  .trends{background:var(--sol);color:var(--tinta);display:flex;align-items:stretch;border-bottom:3px solid var(--tinta);overflow:hidden}
+  .trends[hidden]{display:none}
+  .trends-label{flex:none;background:var(--tinta);color:var(--sol);font-family:var(--font-mono);font-size:12px;letter-spacing:.1em;
+    text-transform:uppercase;padding:11px 16px;display:flex;align-items:center;gap:8px;position:relative;z-index:2}
+  .trends-view{overflow:hidden;flex:1;mask-image:linear-gradient(90deg,transparent,#000 30px,#000 calc(100% - 30px),transparent);-webkit-mask-image:linear-gradient(90deg,transparent,#000 30px,#000 calc(100% - 30px),transparent)}
+  .trends-track{display:inline-flex;white-space:nowrap;animation:marquee 60s linear infinite;padding:11px 0}
+  .trends-track:hover{animation-play-state:paused}
+  .trends-track span{font-family:var(--font-mono);font-size:13px;text-transform:uppercase;letter-spacing:.04em;margin-right:34px;display:inline-flex;gap:10px;align-items:baseline}
+  .trends-track span::before{content:"✦";font-size:10px}
+  .trends-track small{font-size:11px;opacity:.65}
+  @keyframes marquee{to{transform:translateX(-50%)}}
+
+  /* ---------- chips / meta ---------- */
+  .chip{font-family:var(--font-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;padding:4px 9px;border:1.5px solid currentColor;border-radius:999px;white-space:nowrap}
+  .chip.fill{background:var(--tinta);color:var(--papel);border-color:var(--tinta)}
+  .chip.hot{background:var(--brasa);color:#fff;border-color:var(--brasa)}
+  .meta{font-family:var(--font-mono);font-size:12px;letter-spacing:.02em;color:var(--mudo);display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+  .meta b{color:inherit;font-weight:500;text-transform:uppercase;letter-spacing:.06em}
+  .meta .sep{opacity:.5}
+  .chips{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+
+  /* ---------- duotone ---------- */
+  .media{position:relative;overflow:hidden;background:var(--sec,var(--brasa))}
+  .media img{width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.15) brightness(1.02);mix-blend-mode:multiply;transition:filter .5s,transform .8s cubic-bezier(.2,.7,.2,1)}
+  @media (hover:hover){
+    a:hover .media img{filter:none;mix-blend-mode:normal;transform:scale(1.045)}
   }
 
-  /* ---------- HERO ---------- */
-  .hero{
-    padding:44px 0 36px;
+  /* ---------- hero ---------- */
+  .hero{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:clamp(22px,3.4vw,52px);padding-top:clamp(28px,4.4vw,56px);padding-bottom:clamp(28px,4vw,52px)}
+  .hero-card a{display:grid;grid-template-columns:minmax(0,1fr);gap:0}
+  .hero-card .media{--sec:var(--brasa);aspect-ratio:16/10;box-shadow:10px 10px 0 var(--tinta);border:3px solid var(--tinta)}
+  .hero-card.noimg .media{display:none}
+  .stamp{position:absolute;left:-6px;bottom:-6px;z-index:3;width:clamp(86px,9vw,116px);aspect-ratio:1;border-radius:50%;background:var(--sol);color:var(--tinta);
+    border:3px solid var(--tinta);display:grid;place-content:center;text-align:center;transform:rotate(-10deg);box-shadow:4px 4px 0 var(--tinta)}
+  .stamp strong{font-family:var(--font-display);font-weight:900;font-size:clamp(34px,4vw,48px);line-height:.85;display:block}
+  .stamp small{font-family:var(--font-mono);font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;line-height:1.15;display:block}
+  .hero-text{padding-top:clamp(20px,2.6vw,32px)}
+  .hero-text h2{
+    font-family:var(--font-head);font-weight:800;font-variation-settings:"SOFT" 40,"WONK" 1;
+    font-size:clamp(30px,4.5vw,66px);line-height:1.03;letter-spacing:-.022em;margin:14px 0 14px;text-wrap:balance;
+    background:linear-gradient(var(--sol),var(--sol)) 0 100%/0 .32em no-repeat;transition:background-size .5s cubic-bezier(.2,.7,.2,1);
   }
-  .hero-grid{
-    display:grid;
-    grid-template-columns:1fr;
-    gap:24px;
-  }
-  @media(min-width:900px){
-    .hero-grid{ grid-template-columns:1.6fr 1fr; }
-  }
-  .hero-feature{
-    background:var(--paper-raised);
-    border:3px solid var(--ink);
-    box-shadow:var(--shadow);
-    overflow:hidden;
-    position:relative;
-  }
-  .hero-feature-media{
-    height:280px;
-    background:
-      radial-gradient(circle at 20% 20%, rgba(200,30,44,0.35), transparent 45%),
-      radial-gradient(circle at 80% 70%, rgba(14,61,122,0.4), transparent 50%),
-      linear-gradient(135deg, #1a1a1a, #313131);
-    position:relative;
-  }
-  .hero-feature-media::after{
-    content:"";
-    position:absolute; inset:0;
-    background-image: repeating-linear-gradient(45deg, rgba(255,255,255,0.03) 0 2px, transparent 2px 6px);
-  }
-  .tag{
-    display:inline-block;
-    font-size:11.5px;
-    font-weight:800;
-    letter-spacing:0.06em;
-    text-transform:uppercase;
-    padding:5px 11px;
-    color:#fff;
-  }
-  .tag.brasil{ background:var(--brasil); }
-  .tag.mundo{ background:var(--mundo); }
-  .tag-float{
-    position:absolute;
-    top:16px; left:16px;
-  }
-  .hero-feature-body{
-    padding:26px;
-  }
-  .hero-feature-body .headline{
-    font-size:clamp(24px,3.4vw,34px);
-    margin-bottom:12px;
-  }
-  .hero-feature-body p{
-    color:var(--ink-soft);
-    font-size:15.5px;
-    margin-bottom:14px;
-  }
-  .byline{
-    font-size:12.5px;
-    color:var(--ink-soft);
-    font-weight:600;
-    text-transform:uppercase;
-    letter-spacing:0.03em;
-  }
+  .hero-card a:hover h2{background-size:100% .32em}
+  .hero-text p{font-family:var(--font-head);font-size:clamp(16px,1.5vw,20px);line-height:1.45;color:#2a2823;max-width:62ch;margin-bottom:16px}
 
-  .hero-list{
-    display:flex;
-    flex-direction:column;
-    gap:14px;
-  }
-  .hero-list-item{
-    background:var(--paper-raised);
-    border:2px solid var(--ink);
-    padding:14px 16px;
-    display:flex;
-    gap:12px;
-    align-items:flex-start;
-    transition:transform .15s ease;
-  }
-  .hero-list-item:hover{ transform:translateX(3px); }
-  .hero-list-num{
-    font-family:'Archivo Black', sans-serif;
-    font-size:20px;
-    color:var(--gold-dark);
-    flex-shrink:0;
-    line-height:1.2;
-  }
-  .hero-list-item h4{
-    font-family:'Newsreader', serif;
-    font-size:16px;
-    font-weight:600;
-    margin-bottom:4px;
-  }
-  .hero-list-item .tag{ font-size:10px; padding:3px 8px; }
+  .hot-head{display:flex;align-items:center;gap:10px;border-top:4px solid var(--tinta);padding-top:12px;margin-bottom:6px}
+  .hot-head h2{font-family:var(--font-display);font-weight:900;font-size:clamp(30px,3vw,40px);letter-spacing:.01em;text-transform:uppercase;line-height:1}
+  .hot-head i{width:12px;height:12px;background:var(--brasa);animation:blink 1.4s steps(2) infinite}
+  @keyframes blink{50%{opacity:.15}}
+  .hot-sub{font-family:var(--font-mono);font-size:11.5px;color:var(--mudo);letter-spacing:.03em;margin-bottom:6px}
+  .hot-list{list-style:none}
+  .hot-list li{border-bottom:1px dashed #9a937f}
+  .hot-list a{display:grid;grid-template-columns:auto 1fr;gap:14px;padding:16px 0;align-items:start}
+  .num{font-family:var(--font-display);font-weight:900;font-size:clamp(46px,4.6vw,64px);line-height:.8;color:transparent;-webkit-text-stroke:2px var(--tinta);min-width:1.15em;transition:.25s}
+  .hot-list li:first-child .num{color:var(--brasa);-webkit-text-stroke-color:var(--brasa)}
+  .hot-list a:hover .num{color:var(--tinta)}
+  .hot-list h3{font-family:var(--font-head);font-weight:700;font-variation-settings:"SOFT" 30;font-size:clamp(17px,1.5vw,20px);line-height:1.2;letter-spacing:-.01em;margin-bottom:8px;text-wrap:pretty}
+  .hot-list a:hover h3{text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:3px}
+  .meter{display:inline-flex;gap:3px;vertical-align:middle}
+  .meter i{width:9px;height:9px;border-radius:50%;border:1.5px solid var(--tinta)}
+  .meter i.on{background:var(--brasa);border-color:var(--brasa)}
 
-  /* ---------- SIGNUP BLOCK (main capture) ---------- */
-  .signup-block{
-    background:var(--ink);
-    color:#fff;
-    border:3px solid var(--ink);
-    box-shadow:var(--shadow);
-    padding:38px 30px;
-    margin:36px 0 8px;
-    position:relative;
-    overflow:hidden;
-  }
-  .signup-block::before{
-    content:"";
-    position:absolute;
-    top:-60px; right:-60px;
-    width:220px; height:220px;
-    border-radius:50%;
-    background:radial-gradient(circle, var(--brasil) 0%, transparent 70%);
-    opacity:0.5;
-  }
-  .signup-block::after{
-    content:"";
-    position:absolute;
-    bottom:-80px; left:-40px;
-    width:220px; height:220px;
-    border-radius:50%;
-    background:radial-gradient(circle, var(--mundo) 0%, transparent 70%);
-    opacity:0.55;
-  }
-  .signup-inner{
-    position:relative;
-    z-index:2;
-    display:grid;
-    gap:22px;
-  }
-  @media(min-width:860px){
-    .signup-inner{
-      grid-template-columns:1.1fr 1fr;
-      align-items:center;
-    }
-  }
-  .signup-eyebrow{
-    display:inline-flex;
-    align-items:center;
-    gap:6px;
-    background:var(--gold);
-    color:var(--ink);
-    font-weight:800;
-    font-size:11.5px;
-    letter-spacing:0.06em;
-    text-transform:uppercase;
-    padding:5px 11px;
-    margin-bottom:14px;
-  }
-  .signup-block h2{
-    font-size:clamp(24px,3vw,32px);
-    margin-bottom:10px;
-  }
-  .signup-block p{
-    color:#d8d8d8;
-    font-size:15px;
-    max-width:480px;
-  }
-  .signup-stats{
-    display:flex;
-    gap:22px;
-    margin-top:18px;
-  }
-  .signup-stats div{
-    font-family:'Archivo Black', sans-serif;
-    font-size:22px;
-    color:#fff;
-  }
-  .signup-stats span{
-    display:block;
-    font-family:'Work Sans', sans-serif;
-    font-size:11px;
-    font-weight:600;
-    color:#a9a9a9;
-    text-transform:uppercase;
-    letter-spacing:0.04em;
-    margin-top:2px;
-  }
+  /* ---------- cadastro ---------- */
+  .signup{background:var(--tinta);color:var(--papel);position:relative;overflow:hidden;border-top:3px solid var(--tinta)}
+  .signup::before{content:"";position:absolute;left:-12%;bottom:-60%;width:60vw;height:60vw;border-radius:50%;background:radial-gradient(circle,rgba(43,60,255,.5),transparent 65%);pointer-events:none}
+  .signup .wrap{position:relative;z-index:1;display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:clamp(24px,4vw,64px);align-items:center;padding-top:clamp(36px,6vw,72px);padding-bottom:clamp(36px,6vw,72px)}
+  .signup h2{font-family:var(--font-display);font-weight:900;text-transform:uppercase;font-size:clamp(46px,7.4vw,112px);line-height:.86;letter-spacing:-.005em}
+  .signup h2 em{font-style:normal;color:var(--sol)}
+  .signup p.lead{font-family:var(--font-head);font-size:clamp(16px,1.6vw,20px);color:#d9d2c0;max-width:46ch;margin-top:18px}
+  .pills{display:flex;gap:8px;flex-wrap:wrap;margin-top:22px}
+  .pills span{font-family:var(--font-mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;border:1px solid #5a5649;padding:7px 12px;border-radius:999px}
+  .form-card{background:var(--papel);color:var(--tinta);padding:clamp(20px,2.6vw,32px);border:3px solid var(--tinta);box-shadow:10px 10px 0 var(--sol);transform:rotate(.6deg)}
+  .form-card label{display:block;font-family:var(--font-mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px}
+  .form-row{display:flex;gap:10px;flex-wrap:wrap}
+  .form-row input[type=email]{flex:1;min-width:190px;padding:15px 14px;border:3px solid var(--tinta);background:#fff;font-family:var(--font-ui);font-size:16px;border-radius:0}
+  .form-row input[type=email]:focus{outline:3px solid var(--brasa);outline-offset:2px}
+  .btn-submit{background:var(--brasa);color:#fff;border:3px solid var(--tinta);font-family:var(--font-ui);font-weight:800;font-size:16px;padding:14px 22px;cursor:pointer;transition:transform .15s, box-shadow .15s;border-radius:0}
+  .btn-submit:hover{transform:translate(-3px,-3px);box-shadow:5px 5px 0 var(--tinta)}
+  .btn-submit:active{transform:none;box-shadow:none}
+  .btn-submit:disabled{opacity:.6;cursor:progress}
+  .form-fine{font-size:12.5px;color:#4d493f;margin-top:12px}
+  .form-fine a{text-decoration:underline}
+  .form-success,.form-error{display:none;margin-top:12px;padding:12px 14px;font-weight:700;font-size:14px;border:3px solid var(--tinta)}
+  .form-success{background:#cdf5dc}
+  .form-error{background:#ffd9cf}
+  .hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
 
-  .signup-form-card{
-    background:var(--paper-raised);
-    color:var(--ink);
-    padding:24px;
-    border:2px solid var(--ink);
-  }
-  .signup-form-card label{
-    display:block;
-    font-size:12px;
-    font-weight:700;
-    text-transform:uppercase;
-    letter-spacing:0.04em;
-    margin-bottom:6px;
-  }
-  .form-row{
-    display:flex;
-    gap:10px;
-    flex-wrap:wrap;
-  }
-  .form-row input[type=email]{
-    flex:1;
-    min-width:180px;
-    padding:13px 14px;
-    border:2px solid var(--ink);
-    font-family:'Work Sans', sans-serif;
-    font-size:15px;
-    background:#fff;
-  }
-  .form-row input[type=email]:focus{ outline:3px solid var(--gold); outline-offset:0; }
-  .btn-submit{
-    background:var(--brasil);
-    color:#fff;
-    border:2px solid var(--brasil-dark);
-    font-weight:800;
-    font-size:14.5px;
-    padding:13px 22px;
-    cursor:pointer;
-    letter-spacing:0.01em;
-    transition:transform .15s ease, background .15s ease;
-    box-shadow:var(--shadow-sm);
-  }
-  .btn-submit:hover{ transform:translate(-2px,-2px); background:var(--brasil-dark); }
-  .btn-submit:active{ transform:translate(0,0); box-shadow:none; }
-  .form-fine{
-    font-size:11.5px;
-    color:var(--ink-soft);
-    margin-top:10px;
-  }
-  .form-success{
-    display:none;
-    padding:14px;
-    background:#eef7ee;
-    border:2px solid #2e7d32;
-    color:#1b4d1e;
-    font-weight:600;
-    font-size:14px;
-  }
-  .form-error{
-    display:none;
-    padding:10px 12px;
-    background:#fdecec;
-    border:2px solid var(--brasil);
-    color:var(--brasil-dark);
-    font-weight:600;
-    font-size:13px;
-    margin-top:10px;
-  }
+  /* ---------- seções ---------- */
+  .section{background:var(--bg);color:var(--fg);padding:clamp(34px,5vw,64px) 0 clamp(40px,6vw,80px);border-top:3px solid var(--tinta)}
+  .section.brasil{--bg:var(--papel);--fg:var(--tinta);--card:#FBF7EC;--line:var(--tinta);--sec:var(--verde);--sec-text:var(--verde);--soft:#5B564C}
+  .section.mundo{--bg:var(--tinta);--fg:var(--papel);--card:#1C1B18;--line:#F2EBDC;--sec:var(--azul);--sec-text:var(--azul-claro);--soft:#a8a190}
+  .sec-head{position:relative;z-index:0;display:flex;align-items:flex-end;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-bottom:clamp(8px,1.4vw,18px)}
+  .sec-title{font-family:var(--font-display);font-weight:900;text-transform:uppercase;font-size:clamp(84px,17vw,250px);line-height:.74;letter-spacing:-.012em;color:var(--sec-text);margin-bottom:-.06em}
+  .sec-note{font-family:var(--font-mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--soft);text-align:right;max-width:30ch;padding-bottom:10px}
+  .grid{position:relative;z-index:1;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(14px,1.8vw,24px);grid-auto-flow:dense}
+  .card{background:var(--card);border:2.5px solid var(--line);transition:transform .2s, box-shadow .2s;position:relative}
+  .card>a{display:flex;flex-direction:column;height:100%}
+  @media (hover:hover){.card:hover{transform:translate(-4px,-4px);box-shadow:7px 7px 0 var(--sec)}}
+  .card .media{aspect-ratio:16/10;border-bottom:2.5px solid var(--line)}
+  .card .body{padding:16px 16px 18px;display:flex;flex-direction:column;gap:10px;flex:1}
+  .card h3{font-family:var(--font-head);font-weight:700;font-variation-settings:"SOFT" 30;font-size:clamp(18px,1.55vw,22px);line-height:1.18;letter-spacing:-.012em;text-wrap:pretty}
+  .card p{font-family:var(--font-head);font-size:15px;line-height:1.42;color:var(--soft)}
+  .card .meta{margin-top:auto;padding-top:4px;color:var(--soft)}
+  .card .chip{color:var(--sec-text)}
+  .card .cov{font-family:var(--font-mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--brasa)}
+  .card.lead{grid-column:span 2;grid-row:span 2}
+  .section.mundo .card.lead{grid-column:2 / span 2}
+  .card.lead .media{aspect-ratio:auto;flex:1;min-height:260px}
+  .card.lead h3{font-size:clamp(26px,3vw,42px);line-height:1.08;letter-spacing:-.02em}
+  .card.lead .body{flex:none}
+  /* sem imagem: cartão tipográfico */
+  .card.noimg .media{display:none}
+  .card.noimg>a{background:var(--sec);color:#fff;position:relative;overflow:hidden}
+  .card.noimg>a::before{content:"“";position:absolute;right:10px;top:-34px;font-family:var(--font-display);font-weight:900;font-size:190px;line-height:1;color:rgba(255,255,255,.16)}
+  .card.noimg h3,.card.noimg p,.card.noimg .meta,.card.noimg .chip{color:#fff}
+  .card.noimg p{opacity:.9}
+  .card.noimg .body{justify-content:flex-end;padding-top:48px}
+  .card.noimg .cov{color:var(--sol)}
+  .card.noimg h3{font-size:clamp(22px,2.1vw,30px);line-height:1.12}
+  .card.lead.noimg h3{font-size:clamp(30px,3.6vw,52px)}
 
-  /* ---------- SECTIONS ---------- */
-  .section{
-    padding:44px 0;
-  }
-  .section-head{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    margin-bottom:22px;
-    border-bottom:3px solid var(--ink);
-    padding-bottom:10px;
-  }
-  .section-title{
-    display:flex;
-    align-items:center;
-    gap:10px;
-    font-family:'Archivo Black', sans-serif;
-    font-size:22px;
-  }
-  .section-title .swatch{
-    width:16px; height:16px;
-    display:inline-block;
-  }
-  .swatch.brasil{ background:var(--brasil); }
-  .swatch.mundo{ background:var(--mundo); }
+  /* ---------- para ler com calma ---------- */
+  .slow{background:var(--papel-2);border-top:3px solid var(--tinta);padding:clamp(30px,4vw,52px) 0}
+  .slow[hidden]{display:none}
+  .slow-head{display:flex;justify-content:space-between;align-items:baseline;gap:16px;flex-wrap:wrap;margin-bottom:18px}
+  .slow-head h2{font-family:var(--font-display);font-weight:900;text-transform:uppercase;font-size:clamp(34px,4vw,54px);line-height:.9}
+  .slow-head span{font-family:var(--font-mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--mudo)}
+  .slow-row{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding-left:var(--pad);padding:6px var(--pad) 18px;margin:0 calc(var(--pad)*-1)}
+  .slow-card{flex:0 0 min(300px,80vw);scroll-snap-align:start;background:#FBF7EC;border:2.5px solid var(--tinta);transition:.2s}
+  .slow-card a{display:flex;flex-direction:column;height:100%}
+  @media (hover:hover){.slow-card:hover{transform:translate(-3px,-3px);box-shadow:6px 6px 0 var(--tinta)}}
+  .slow-card .media{--sec:#7a6a45;aspect-ratio:16/9;border-bottom:2.5px solid var(--tinta)}
+  .slow-card.noimg .media{display:none}
+  .slow-card .body{padding:14px;display:flex;flex-direction:column;gap:8px;flex:1}
+  .slow-card h3{font-family:var(--font-head);font-weight:700;font-size:18px;line-height:1.2;text-wrap:pretty}
+  .slow-card p{font-family:var(--font-head);font-size:14px;color:var(--mudo);line-height:1.4}
 
-  .grid-cards{
-    display:grid;
-    grid-template-columns:repeat(auto-fill, minmax(260px, 1fr));
-    gap:20px;
-  }
-  .card{
-    background:var(--paper-raised);
-    border:2px solid var(--ink);
-    display:flex;
-    flex-direction:column;
-    transition:transform .15s ease, box-shadow .15s ease;
-  }
-  .card:hover{ transform:translate(-3px,-3px); box-shadow:var(--shadow-sm); }
-  .card-media{
-    height:150px;
-    position:relative;
-  }
-  .card-media.b1{ background:linear-gradient(140deg,#7a1017,#c81e2c); }
-  .card-media.b2{ background:linear-gradient(140deg,#8f1420,#e0454f); }
-  .card-media.b3{ background:linear-gradient(140deg,#5c0d15,#a01822); }
-  .card-media.m1{ background:linear-gradient(140deg,#06213f,#0e3d7a); }
-  .card-media.m2{ background:linear-gradient(140deg,#092a56,#1c5cad); }
-  .card-media.m3{ background:linear-gradient(140deg,#031630,#0e3d7a); }
-  .card-body{
-    padding:16px;
-    display:flex;
-    flex-direction:column;
-    gap:8px;
-    flex:1;
-  }
-  .card-body h3{
-    font-size:17px;
-  }
-  .card-body p{
-    font-size:13.5px;
-    color:var(--ink-soft);
-  }
-  .card-meta{
-    margin-top:auto;
-    font-size:11.5px;
-    color:var(--ink-soft);
-    font-weight:600;
-    text-transform:uppercase;
-    display:flex;
-    justify-content:space-between;
-  }
+  /* ---------- esqueleto e erro ---------- */
+  .sk{background:linear-gradient(90deg,rgba(0,0,0,.06),rgba(0,0,0,.13),rgba(0,0,0,.06));background-size:200% 100%;animation:sh 1.3s linear infinite;border-radius:2px}
+  .mundo .sk{background:linear-gradient(90deg,rgba(255,255,255,.05),rgba(255,255,255,.12),rgba(255,255,255,.05));background-size:200% 100%}
+  @keyframes sh{to{background-position:-200% 0}}
+  .sk-hero{aspect-ratio:16/10}
+  .sk-line{height:22px;margin:12px 0}
+  .sk-card{height:300px}
+  .news-error{padding:40px 0;font-family:var(--font-head);font-size:20px}
 
-  /* ---------- STICKY BAR ---------- */
-  .sticky-bar{
-    position:fixed;
-    left:0; right:0; bottom:-140px;
-    background:var(--ink);
-    color:#fff;
-    border-top:3px solid var(--gold);
-    padding:16px 0;
-    z-index:80;
-    transition:bottom .35s ease;
-  }
-  .sticky-bar.show{ bottom:0; }
-  .sticky-inner{
-    display:flex;
-    align-items:center;
-    gap:16px;
-    flex-wrap:wrap;
-  }
-  .sticky-text{
-    flex:1;
-    min-width:200px;
-  }
-  .sticky-text strong{ display:block; font-size:15px; }
-  .sticky-text span{ font-size:12.5px; color:#b7b7b7; }
-  .sticky-form{
-    display:flex;
-    gap:8px;
-    flex-wrap:wrap;
-    flex:1;
-    min-width:260px;
-  }
-  .sticky-form input[type=email]{
-    flex:1;
-    min-width:160px;
-    padding:10px 12px;
-    border:2px solid #fff;
-    background:#fff;
-    font-size:14px;
-  }
-  .sticky-close{
-    background:transparent;
-    border:none;
-    color:#fff;
-    font-size:20px;
-    cursor:pointer;
-    padding:0 6px;
-    line-height:1;
-    opacity:0.7;
-  }
-  .sticky-close:hover{ opacity:1; }
+  /* ---------- rodapé ---------- */
+  footer{background:var(--tinta);color:#c9c2b0;padding:clamp(36px,5vw,60px) 0 28px;border-top:3px solid var(--sol)}
+  .foot-grid{display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:32px}
+  .foot-logo{font-family:var(--font-display);font-weight:900;font-size:44px;color:var(--papel);line-height:.9;text-transform:uppercase}
+  footer h4{font-family:var(--font-mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--sol);margin-bottom:12px;font-weight:500}
+  footer a{display:block;margin-bottom:8px;font-size:14px}
+  footer a:hover{color:#fff;text-decoration:underline}
+  footer p{font-size:13.5px;line-height:1.55;max-width:46ch}
+  .foot-bottom{border-top:1px solid #34312a;margin-top:30px;padding-top:16px;font-family:var(--font-mono);font-size:11.5px;color:#8c8675;letter-spacing:.03em}
 
-  /* ---------- FOOTER ---------- */
-  footer{
-    background:var(--ink);
-    color:#c9c9c9;
-    padding:40px 0 26px;
-    margin-top:20px;
+  /* ---------- barra fixa ---------- */
+  .sticky-bar{position:fixed;left:0;right:0;bottom:0;background:var(--sol);color:var(--tinta);border-top:3px solid var(--tinta);padding:14px 0;z-index:90;
+    transform:translateY(105%);visibility:hidden;transition:transform .4s cubic-bezier(.2,.8,.2,1),visibility 0s linear .4s}
+  .sticky-bar.show{transform:none;visibility:visible;transition:transform .4s cubic-bezier(.2,.8,.2,1),visibility 0s}
+  .sticky-inner{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+  .sticky-text{flex:1;min-width:200px}
+  .sticky-text strong{display:block;font-family:var(--font-display);font-weight:900;font-size:26px;line-height:1;text-transform:uppercase}
+  .sticky-text span{font-size:13px}
+  .sticky-form{display:flex;gap:8px;flex-wrap:wrap;flex:1.4;min-width:260px}
+  .sticky-form input[type=email]{flex:1;min-width:170px;padding:11px 12px;border:3px solid var(--tinta);background:#fff;font-size:15px;font-family:var(--font-ui);border-radius:0}
+  .sticky-form .btn-submit{padding:11px 18px;font-size:15px}
+  .sticky-close{background:none;border:none;font-size:26px;cursor:pointer;line-height:1;padding:4px 8px;color:var(--tinta)}
+
+  /* ---------- entrada suave ---------- */
+  .reveal{opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .6s cubic-bezier(.2,.7,.2,1);transition-delay:calc(var(--i,0)*70ms)}
+  .reveal.in{opacity:1;transform:none}
+
+  /* ---------- responsivo ---------- */
+  @media (max-width:980px){
+    .hero{grid-template-columns:1fr}
+    .signup .wrap{grid-template-columns:1fr}
+    .grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+    .card.lead,.section.mundo .card.lead{grid-column:1 / -1;grid-row:auto}
+    .card.lead .media{aspect-ratio:16/9;flex:none;min-height:0}
+    .foot-grid{grid-template-columns:1fr 1fr}
+    .foot-grid>div:first-child{grid-column:1 / -1}
   }
-  .footer-inner{
-    display:flex;
-    flex-direction:column;
-    gap:18px;
+  @media (max-width:620px){
+    .grid{grid-template-columns:1fr}
+    .sec-note{text-align:left}
+    .stamp{left:4px}
+    .form-card{transform:none}
+    .topbar .wrap{justify-content:center;text-align:center}
+    /* barra fixa compacta no celular */
+    .sticky-bar{padding:10px 0}
+    .sticky-inner{gap:8px;position:relative;padding-right:calc(var(--pad) + 28px)}
+    .sticky-text{min-width:0;flex:1 1 100%}
+    .sticky-text strong{font-size:21px}
+    .sticky-text span{display:none}
+    .sticky-form{flex:1 1 100%;min-width:0;flex-wrap:nowrap}
+    .sticky-form input[type=email]{min-width:0}
+    .sticky-close{position:absolute;right:calc(var(--pad) - 6px);top:-2px}
   }
-  @media(min-width:720px){
-    .footer-inner{
-      flex-direction:row;
-      justify-content:space-between;
-      align-items:flex-start;
-    }
-  }
-  .footer-logo{
-    font-family:'Archivo Black', sans-serif;
-    color:#fff;
-    font-size:20px;
-    margin-bottom:8px;
-  }
-  .footer-cols{
-    display:flex;
-    gap:40px;
-    flex-wrap:wrap;
-  }
-  .footer-col h5{
-    font-size:12px;
-    text-transform:uppercase;
-    letter-spacing:0.05em;
-    color:#8c8c8c;
-    margin-bottom:10px;
-  }
-  .footer-col a{
-    display:block;
-    font-size:13.5px;
-    margin-bottom:7px;
-    color:#d4d4d4;
-  }
-  .footer-col a:hover{ color:#fff; }
-  .footer-bottom{
-    border-top:1px solid #333;
-    margin-top:26px;
-    padding-top:16px;
-    font-size:12px;
-    color:#7f7f7f;
-    display:flex;
-    justify-content:space-between;
-    flex-wrap:wrap;
-    gap:10px;
+  @media (prefers-reduced-motion:reduce){
+    *,*::before,*::after{animation:none!important;transition:none!important}
+    .reveal{opacity:1;transform:none}
+    .logo span b{transform:none}
   }
 </style>
 </head>
 <body>
 
 <!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-XXXXXXX"
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-XXXXXXX" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
-<div class="utility-bar">
-  <div class="utility-inner">
-    <div class="utility-date" id="live-date">—</div>
-    <div class="ticker-viewport">
-      <div class="ticker-track" id="ticker-track">
-        <span>Congresso retoma pauta econômica nesta semana</span>
-        <span>Mercado internacional reage a dados de inflação</span>
-        <span>Assine grátis e receba o resumo do dia às 7h</span>
-        <span>Cúpula internacional discute acordo comercial</span>
-        <span>Novo levantamento aponta tendência para o setor produtivo</span>
-        <span>Congresso retoma pauta econômica nesta semana</span>
-        <span>Mercado internacional reage a dados de inflação</span>
-        <span>Assine grátis e receba o resumo do dia às 7h</span>
-        <span>Cúpula internacional discute acordo comercial</span>
-        <span>Novo levantamento aponta tendência para o setor produtivo</span>
-      </div>
-    </div>
+<div class="grain" aria-hidden="true"></div>
+
+<div class="topbar">
+  <div class="wrap">
+    <span id="today">—</span>
+    <span class="live" id="live"><i></i><span>Atualizado <b id="updated">—</b></span></span>
   </div>
 </div>
 
-<header>
-  <div class="wrap header-inner">
-    <a href="#topo" class="logo">
-      PANO<span class="dot">·</span>RAMA
-      <span class="logo-sub" style="margin-left:8px;">Brasil &amp; Mundo</span>
-    </a>
-    <nav>
-      <a href="#brasil" class="nav-pill brasil">Brasil</a>
-      <a href="#mundo" class="nav-pill mundo">Mundo</a>
-      <a href="#assinar" class="cta-header">Assinar grátis</a>
-    </nav>
+<header class="masthead">
+  <div class="wrap">
+    <p class="kicker">Brasil &amp; Mundo · o que está em alta agora</p>
+    <div class="logo" role="img" aria-label="Panorama">
+      <span style="--k:0"><b>P</b></span><span style="--k:1"><b>A</b></span><span style="--k:2"><b>N</b></span><span class="sun" style="--k:3"><b>O</b></span><span style="--k:4"><b>R</b></span><span style="--k:5"><b>A</b></span><span style="--k:6"><b>M</b></span><span style="--k:7"><b>A</b></span>
+    </div>
+    <div class="mast-row">
+      <nav aria-label="Seções">
+        <a href="#em-alta">Em alta</a>
+        <a href="#brasil">Brasil</a>
+        <a href="#mundo">Mundo</a>
+      </nav>
+      <a class="btn-cta" href="#assinar">Receber por email, grátis →</a>
+    </div>
   </div>
 </header>
 
-<main id="topo">
-  <div class="wrap hero">
-    <div class="hero-grid">
-      <article class="hero-feature">
-        <div class="hero-feature-media">
-          <span class="tag brasil tag-float">Brasil</span>
-        </div>
-        <div class="hero-feature-body">
-          <h1 class="headline">O resumo do dia, direto ao ponto: o que realmente importa em menos de 5 minutos de leitura</h1>
-          <p>Cada manhã, selecionamos o que aconteceu de mais relevante no Brasil e no mundo — sem enrolação, sem viés, sem precisar abrir dez abas diferentes.</p>
-          <div class="byline">Edição de hoje · Panorama Redação</div>
-        </div>
-      </article>
+<div class="trends" id="trends" hidden>
+  <div class="trends-label">▲ Buscado agora</div>
+  <div class="trends-view"><div class="trends-track" id="trends-track"></div></div>
+</div>
 
-      <div class="hero-list">
-        <div class="hero-list-item">
-          <div class="hero-list-num">01</div>
-          <div>
-            <span class="tag mundo">Mundo</span>
-            <h4>Lideranças internacionais se reúnem para discutir novo acordo comercial</h4>
-          </div>
-        </div>
-        <div class="hero-list-item">
-          <div class="hero-list-num">02</div>
-          <div>
-            <span class="tag brasil">Brasil</span>
-            <h4>Indicadores econômicos mostram sinais de estabilidade no trimestre</h4>
-          </div>
-        </div>
-        <div class="hero-list-item">
-          <div class="hero-list-num">03</div>
-          <div>
-            <span class="tag mundo">Mundo</span>
-            <h4>Novo estudo global aponta mudanças no comportamento de consumo</h4>
-          </div>
-        </div>
-        <div class="hero-list-item">
-          <div class="hero-list-num">04</div>
-          <div>
-            <span class="tag brasil">Brasil</span>
-            <h4>Setor produtivo brasileiro registra movimento de recuperação</h4>
-          </div>
-        </div>
-      </div>
+<main>
+  <h1 class="sr">Panorama: notícias do Brasil e do mundo</h1>
+
+  <section class="hero wrap" id="em-alta" aria-label="Manchete principal e assuntos em alta">
+    <div id="hero">
+      <div class="sk sk-hero"></div><div class="sk sk-line" style="width:90%"></div><div class="sk sk-line" style="width:70%"></div>
     </div>
+    <aside aria-labelledby="hot-title">
+      <div class="hot-head"><i aria-hidden="true"></i><h2 id="hot-title">Em alta agora</h2></div>
+      <p class="hot-sub">Ordenado por quantos veículos cobrem o assunto e pelo destaque que recebe.</p>
+      <ol class="hot-list" id="hot">
+        <li><div class="sk sk-line"></div></li><li><div class="sk sk-line"></div></li><li><div class="sk sk-line"></div></li>
+      </ol>
+    </aside>
+  </section>
 
-    <!-- SIGNUP PRINCIPAL -->
-    <div class="signup-block" id="assinar">
-      <div class="signup-inner">
-        <div>
-          <span class="signup-eyebrow">★ Gratuito · direto no seu email</span>
-          <h2>As notícias do Brasil e do mundo, resumidas para você todo dia</h2>
-          <p>Sem precisar abrir dez sites. Um email por dia com o que realmente importa — Brasil e mundo, direto e sem enrolação.</p>
-          <div class="signup-stats">
-            <div>50mil<span>Leitores cadastrados</span></div>
-            <div>7h<span>Chega toda manhã</span></div>
-            <div>100%<span>Grátis, sempre</span></div>
-          </div>
-        </div>
-
-        <div class="signup-form-card">
-          <form id="signup-form-main">
-            <label for="email-main">Seu melhor email</label>
-            <div class="form-row">
-              <input type="email" id="email-main" name="email" placeholder="voce@email.com" required>
-              <button type="submit" class="btn-submit">Quero receber</button>
-            </div>
-            <p class="form-fine">Você pode cancelar quando quiser, com um clique. Sem spam.</p>
-            <div class="form-error" id="form-error-main">Não foi possível concluir o cadastro. Tente novamente.</div>
-          </form>
-          <div class="form-success" id="form-success-main">✓ Cadastro confirmado! Fique de olho na sua caixa de entrada.</div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- SEÇÃO BRASIL -->
-  <section class="section" id="brasil">
+  <section class="signup" id="assinar" aria-labelledby="signup-title">
     <div class="wrap">
-      <div class="section-head">
-        <div class="section-title"><span class="swatch brasil"></span> Brasil</div>
+      <div>
+        <h2 id="signup-title">Receba o <em>Panorama</em> no seu email</h2>
+        <p class="lead">Brasil e mundo reunidos, direto ao ponto. As manchetes que mais importam, sem precisar abrir dez sites.</p>
+        <div class="pills"><span>Grátis</span><span>Sai com 1 clique</span><span>Brasil + Mundo</span></div>
       </div>
-      <div class="grid-cards">
-        <article class="card">
-          <div class="card-media b1"><span class="tag brasil tag-float">Brasil</span></div>
-          <div class="card-body">
-            <h3>Governo anuncia pacote de medidas para estimular a economia local</h3>
-            <p>Proposta prevê incentivos para pequenos negócios e revisão de tributos setoriais.</p>
-            <div class="card-meta"><span>Economia</span><span>Há 2h</span></div>
+      <div class="form-card">
+        <form id="signup-form-main" novalidate>
+          <label for="email-main">Seu melhor email</label>
+          <div class="form-row">
+            <input type="email" id="email-main" name="email" placeholder="voce@email.com" autocomplete="email" required>
+            <button type="submit" class="btn-submit">Quero receber</button>
           </div>
-        </article>
-        <article class="card">
-          <div class="card-media b2"><span class="tag brasil tag-float">Brasil</span></div>
-          <div class="card-body">
-            <h3>Estudo revela mudança no perfil de consumo das famílias brasileiras</h3>
-            <p>Levantamento aponta prioridade crescente para serviços digitais e educação.</p>
-            <div class="card-meta"><span>Sociedade</span><span>Há 4h</span></div>
-          </div>
-        </article>
-        <article class="card">
-          <div class="card-media b3"><span class="tag brasil tag-float">Brasil</span></div>
-          <div class="card-body">
-            <h3>Infraestrutura: novos investimentos são anunciados para rodovias federais</h3>
-            <p>Obras devem começar ainda este semestre em três regiões do país.</p>
-            <div class="card-meta"><span>Infraestrutura</span><span>Há 6h</span></div>
-          </div>
-        </article>
+          <input class="hp" type="text" name="website" id="hp-main" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <p class="form-fine">Ao se cadastrar, você concorda com a nossa <a href="/privacidade.html">Política de Privacidade</a>. Cancele quando quiser, com um clique.</p>
+          <div class="form-error" id="form-error-main" role="alert">Não foi possível concluir o cadastro. Confira o email e tente de novo.</div>
+        </form>
+        <div class="form-success" id="form-success-main" role="status">✓ Cadastro recebido! Fique de olho na sua caixa de entrada.</div>
       </div>
     </div>
   </section>
 
-  <!-- SEÇÃO MUNDO -->
-  <section class="section" id="mundo" style="background:var(--paper-raised); border-top:3px solid var(--ink); border-bottom:3px solid var(--ink);">
+  <section class="section brasil" id="brasil" aria-labelledby="brasil-title">
     <div class="wrap">
-      <div class="section-head">
-        <div class="section-title"><span class="swatch mundo"></span> Mundo</div>
+      <div class="sec-head">
+        <h2 class="sec-title" id="brasil-title">Brasil</h2>
+        <p class="sec-note" id="brasil-note">Política e economia</p>
       </div>
-      <div class="grid-cards">
-        <article class="card">
-          <div class="card-media m1"><span class="tag mundo tag-float">Mundo</span></div>
-          <div class="card-body">
-            <h3>Cúpula internacional discute cooperação em comércio e tecnologia</h3>
-            <p>Representantes de mais de 20 países participam de encontro nesta semana.</p>
-            <div class="card-meta"><span>Diplomacia</span><span>Há 1h</span></div>
-          </div>
-        </article>
-        <article class="card">
-          <div class="card-media m2"><span class="tag mundo tag-float">Mundo</span></div>
-          <div class="card-body">
-            <h3>Bancos centrais monitoram cenário global após novos dados de inflação</h3>
-            <p>Analistas avaliam possíveis impactos sobre juros nos próximos meses.</p>
-            <div class="card-meta"><span>Economia</span><span>Há 3h</span></div>
-          </div>
-        </article>
-        <article class="card">
-          <div class="card-media m3"><span class="tag mundo tag-float">Mundo</span></div>
-          <div class="card-body">
-            <h3>Relatório aponta avanços em cooperação científica internacional</h3>
-            <p>Parcerias entre universidades ganham força em pesquisas conjuntas.</p>
-            <div class="card-meta"><span>Ciência</span><span>Há 8h</span></div>
-          </div>
-        </article>
+      <div class="grid" id="brasil-grid">
+        <div class="sk sk-card"></div><div class="sk sk-card"></div><div class="sk sk-card"></div>
       </div>
     </div>
   </section>
 
-  <div class="wrap" style="padding:36px 0;">
-    <p style="text-align:center; color:var(--ink-soft); font-size:13px;">
-      Conteúdo de demonstração — os cards acima serão substituídos pelo feed real de notícias.
-    </p>
-  </div>
+  <section class="section mundo" id="mundo" aria-labelledby="mundo-title">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2 class="sec-title" id="mundo-title">Mundo</h2>
+        <p class="sec-note" id="mundo-note">Internacional</p>
+      </div>
+      <div class="grid" id="mundo-grid">
+        <div class="sk sk-card"></div><div class="sk sk-card"></div><div class="sk sk-card"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="slow" id="bbc" hidden aria-labelledby="slow-title">
+    <div class="wrap">
+      <div class="slow-head"><h2 id="slow-title">Para ler com calma</h2><span>BBC News Brasil</span></div>
+      <div class="slow-row" id="slow-row"></div>
+    </div>
+  </section>
 </main>
 
-<!-- BARRA STICKY -->
-<div class="sticky-bar" id="sticky-bar">
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="foot-logo">Panorama</div>
+        <p style="margin-top:12px">As manchetes do Brasil e do mundo reunidas em um só lugar, atualizadas ao longo do dia. Cada título leva ao site do veículo que o publicou.</p>
+      </div>
+      <div>
+        <h4>Manchetes de</h4>
+        <p id="outlets">g1, Folha de S.Paulo, Agência Brasil, CNN Brasil, Poder360 e BBC News Brasil.</p>
+      </div>
+      <div>
+        <h4>Panorama</h4>
+        <a href="#assinar">Receber por email</a>
+        <a href="/privacidade.html">Política de Privacidade</a>
+        <a href="/unsubscribe.html">Cancelar inscrição</a>
+      </div>
+    </div>
+    <div class="foot-bottom">© <span id="year"></span> Panorama. O Panorama não produz as notícias: reúne e organiza manchetes públicas e direciona o leitor às fontes originais.</div>
+  </div>
+</footer>
+
+<div class="sticky-bar" id="sticky-bar" role="complementary" aria-label="Cadastro rápido">
   <div class="wrap sticky-inner">
     <div class="sticky-text">
-      <strong>Não perca as notícias de hoje</strong>
-      <span>Cadastre-se grátis, leva 5 segundos.</span>
+      <strong>Não perca o que está em alta</strong>
+      <span>Receba o Panorama por email. Grátis.</span>
     </div>
-    <form class="sticky-form" id="signup-form-sticky">
-      <input type="email" id="email-sticky" name="email" placeholder="voce@email.com" required>
+    <form class="sticky-form" id="signup-form-sticky" novalidate>
+      <input type="email" id="email-sticky" name="email" placeholder="voce@email.com" autocomplete="email" aria-label="Seu email" required>
       <button type="submit" class="btn-submit">Quero receber</button>
     </form>
     <button class="sticky-close" id="sticky-close" aria-label="Fechar">×</button>
   </div>
 </div>
 
-<footer>
-  <div class="wrap footer-inner">
-    <div>
-      <div class="footer-logo">PANORAMA</div>
-      <p style="font-size:13px; max-width:260px;">Notícias do Brasil e do mundo, resumidas todos os dias no seu email.</p>
-    </div>
-    <div class="footer-cols">
-      <div class="footer-col">
-        <h5>Navegar</h5>
-        <a href="#brasil">Brasil</a>
-        <a href="#mundo">Mundo</a>
-        <a href="#assinar">Assinar</a>
-      </div>
-      <div class="footer-col">
-        <h5>Legal</h5>
-        <a href="/privacidade.html">Política de Privacidade</a>
-        <a href="/unsubscribe.html">Cancelar inscrição</a>
-      </div>
-    </div>
-  </div>
-  <div class="wrap footer-bottom">
-    <span>© <span id="year"></span> Panorama Notícias. Todos os direitos reservados.</span>
-    <span>Feito com dados que você mesmo escolheu compartilhar.</span>
-  </div>
-</footer>
-
 <script>
-  // Ano dinâmico
-  document.getElementById('year').textContent = new Date().getFullYear();
+(function(){
+  'use strict';
+  var TZ = 'America/Sao_Paulo';
+  var NEWS_URL = '/api/news';
+  var FALLBACK_URL = '/news-fallback.json';
 
-  // Data ao vivo
-  function updateDate(){
-    const d = new Date();
-    const opts = { weekday:'long', day:'2-digit', month:'long' };
-    let txt = d.toLocaleDateString('pt-BR', opts);
-    txt = txt.charAt(0).toUpperCase() + txt.slice(1);
-    document.getElementById('live-date').textContent = txt;
+  function $(id){ return document.getElementById(id); }
+  function el(tag, cls, text){
+    var n = document.createElement(tag);
+    if(cls) n.className = cls;
+    if(text != null) n.textContent = text;
+    return n;
   }
-  updateDate();
-
-  // ---------------------------------------------------------
-  // CONFIGURAÇÃO DO WEBHOOK DE CADASTRO
-  // Troque pela URL do seu webhook n8n (ex: https://webhook.linikerwambaster.com.br/webhook/cadastro-panorama)
-  // ---------------------------------------------------------
-  const SIGNUP_WEBHOOK_URL = "https://webhook.linikerwambaster.com.br/webhook/cadastro-panorama";
-
-  async function handleSignup(email, formEl, successEl, errorEl){
-    if(errorEl) errorEl.style.display = 'none';
-    try{
-      const res = await fetch(SIGNUP_WEBHOOK_URL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          email: email,
-          origem: 'lp-panorama',
-          pagina: window.location.href,
-          data: new Date().toISOString()
-        })
+  function safeHref(u){
+    try { var x = new URL(u); return x.protocol === 'https:' ? x.href : '#'; } catch(e){ return '#'; }
+  }
+  function ago(iso){
+    var m = Math.round((Date.now() - new Date(iso).getTime()) / 60000);
+    if(!isFinite(m) || m < 1) return 'agora';
+    if(m < 60) return 'há ' + m + ' min';
+    var h = Math.round(m / 60);
+    if(h < 24) return 'há ' + h + ' h';
+    return 'há ' + Math.round(h / 24) + ' d';
+  }
+  function pad(n){ return n < 10 ? '0' + n : '' + n; }
+  function link(item, cls){
+    var a = el('a', cls);
+    a.href = safeHref(item.url);
+    a.target = '_blank';
+    a.rel = 'noopener noreferrer';
+    return a;
+  }
+  function media(item){
+    var m = el('div', 'media');
+    if(item.image){
+      var img = new Image();
+      img.alt = '';
+      img.loading = 'lazy';
+      img.decoding = 'async';
+      img.referrerPolicy = 'no-referrer';
+      img.addEventListener('error', function(){
+        var host = m.closest('.card, .hero-card, .slow-card');
+        if(host) host.classList.add('noimg');
+        img.remove();
       });
+      img.src = safeHref(item.image);
+      m.appendChild(img);
+    }
+    return m;
+  }
+  function metaLine(item, withCoverage){
+    var meta = el('div', 'meta');
+    var src = el('b', null, item.source);
+    meta.appendChild(src);
+    meta.appendChild(el('span', 'sep', '·'));
+    meta.appendChild(el('span', null, ago(item.publishedAt)));
+    if(withCoverage && item.coverage > 1){
+      var others = (item.outlets || []).filter(function(o){ return o !== item.source; });
+      if(others.length){
+        meta.appendChild(el('span', 'sep', '·'));
+        meta.appendChild(el('span', null, 'também em ' + others.join(', ')));
+      }
+    }
+    return meta;
+  }
 
-      if(!res.ok) throw new Error('Falha no cadastro');
+  /* ---------- renderizadores ---------- */
+  function renderHero(h){
+    var box = $('hero');
+    box.replaceChildren();
+    if(!h) return;
+    var card = el('article', 'hero-card reveal' + (h.image ? '' : ' noimg'));
+    var a = link(h);
+    var m = media(h);
+    if(h.coverage > 1){
+      var st = el('div', 'stamp');
+      st.appendChild(el('strong', null, String(h.coverage)));
+      st.appendChild(el('small', null, 'veículos cobrem'));
+      m.appendChild(st);
+    }
+    a.appendChild(m);
+    var t = el('div', 'hero-text');
+    var chips = el('div', 'chips');
+    chips.appendChild(el('span', 'chip hot', 'Manchete'));
+    if(h.topic) chips.appendChild(el('span', 'chip', h.topic));
+    t.appendChild(chips);
+    t.appendChild(el('h2', null, h.title));
+    if(h.summary) t.appendChild(el('p', null, h.summary));
+    t.appendChild(metaLine(h, true));
+    a.appendChild(t);
+    card.appendChild(a);
+    box.appendChild(card);
+  }
 
-      // Dispara evento pro GTM/GA4/Meta
+  function renderHot(list){
+    var ol = $('hot');
+    ol.replaceChildren();
+    (list || []).forEach(function(it, i){
+      var li = el('li', 'reveal');
+      li.style.setProperty('--i', i);
+      var a = link(it);
+      a.appendChild(el('span', 'num', pad(i + 1)));
+      var d = el('div');
+      d.appendChild(el('h3', null, it.title));
+      var meta = el('div', 'meta');
+      var meter = el('span', 'meter');
+      meter.setAttribute('aria-label', it.coverage + (it.coverage === 1 ? ' veículo' : ' veículos'));
+      for(var k = 0; k < 4; k++) meter.appendChild(el('i', k < it.coverage ? 'on' : ''));
+      meta.appendChild(meter);
+      meta.appendChild(el('b', null, it.source));
+      meta.appendChild(el('span', 'sep', '·'));
+      meta.appendChild(el('span', null, ago(it.publishedAt)));
+      d.appendChild(meta);
+      a.appendChild(d);
+      li.appendChild(a);
+      ol.appendChild(li);
+    });
+  }
+
+  function renderGrid(id, list){
+    var grid = $(id);
+    grid.replaceChildren();
+    (list || []).forEach(function(it, i){
+      var card = el('article', 'card reveal' + (i === 0 ? ' lead' : '') + (it.image ? '' : ' noimg'));
+      card.style.setProperty('--i', i % 4);
+      var a = link(it);
+      a.appendChild(media(it));
+      var b = el('div', 'body');
+      var chips = el('div', 'chips');
+      if(it.topic) chips.appendChild(el('span', 'chip', it.topic));
+      if(it.coverage > 1) chips.appendChild(el('span', 'cov', it.coverage + ' veículos'));
+      b.appendChild(chips);
+      b.appendChild(el('h3', null, it.title));
+      if(it.summary && (i === 0 || it.image === '' || i < 4)) b.appendChild(el('p', null, it.summary));
+      b.appendChild(metaLine(it, false));
+      a.appendChild(b);
+      card.appendChild(a);
+      grid.appendChild(card);
+    });
+  }
+
+  function renderSlow(list){
+    var sec = $('bbc'), row = $('slow-row');
+    row.replaceChildren();
+    if(!list || !list.length){ sec.hidden = true; return; }
+    list.forEach(function(it){
+      var c = el('article', 'slow-card' + (it.image ? '' : ' noimg'));
+      var a = link(it);
+      a.appendChild(media(it));
+      var b = el('div', 'body');
+      b.appendChild(el('h3', null, it.title));
+      if(it.summary) b.appendChild(el('p', null, it.summary));
+      b.appendChild(el('div', 'meta', ago(it.publishedAt)));
+      a.appendChild(b);
+      c.appendChild(a);
+      row.appendChild(c);
+    });
+    sec.hidden = false;
+  }
+
+  function renderTrends(list){
+    var box = $('trends'), track = $('trends-track');
+    track.replaceChildren();
+    if(!list || !list.length){ box.hidden = true; return; }
+    for(var rep = 0; rep < 2; rep++){
+      list.forEach(function(t){
+        var s = el('span', null, t.term);
+        if(t.traffic) s.appendChild(el('small', null, t.traffic));
+        if(rep) s.setAttribute('aria-hidden', 'true');
+        track.appendChild(s);
+      });
+    }
+    box.hidden = false;
+  }
+
+  function observeReveals(){
+    var nodes = document.querySelectorAll('.reveal:not(.in)');
+    if(!('IntersectionObserver' in window)){ nodes.forEach(function(n){ n.classList.add('in'); }); return; }
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, { rootMargin: '0px 0px -6% 0px', threshold: 0.05 });
+    nodes.forEach(function(n){ io.observe(n); });
+  }
+
+  function fmtTime(iso){
+    return new Date(iso).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit', timeZone: TZ });
+  }
+
+  function renderAll(d, stale){
+    renderHero(d.hero);
+    renderHot(d.hot);
+    renderGrid('brasil-grid', d.brasil);
+    renderGrid('mundo-grid', d.mundo);
+    renderSlow(d.bbc);
+    renderTrends(d.trends);
+    $('updated').textContent = (stale ? 'edição salva das ' : 'às ') + fmtTime(d.updatedAt);
+    $('live').classList.toggle('stale', !!stale);
+    if(d.meta && d.meta.outlets && d.meta.outlets.length){
+      var o = d.meta.outlets.slice();
+      var last = o.pop();
+      $('outlets').textContent = (o.length ? o.join(', ') + ' e ' : '') + last + '.';
+    }
+    observeReveals();
+  }
+
+  function showError(){
+    var box = $('hero');
+    box.replaceChildren(el('p', 'news-error', 'Não conseguimos carregar as manchetes agora. Volte em alguns minutos.'));
+    ['hot'].forEach(function(id){ $(id).replaceChildren(); });
+    ['brasil-grid', 'mundo-grid'].forEach(function(id){ $(id).replaceChildren(); });
+  }
+
+  function getJSON(url){
+    return fetch(url, { cache: 'no-store' }).then(function(r){
+      if(!r.ok) throw new Error('http ' + r.status);
+      return r.json();
+    });
+  }
+
+  function load(){
+    getJSON(NEWS_URL).then(function(d){
+      if(!d || !d.hero) throw new Error('vazio');
+      renderAll(d, false);
+    }).catch(function(){
+      return getJSON(FALLBACK_URL).then(function(d){ renderAll(d, true); });
+    }).catch(showError);
+  }
+
+  /* data e ano */
+  $('today').textContent = (function(){
+    var s = new Date().toLocaleDateString('pt-BR', { weekday: 'long', day: 'numeric', month: 'long', timeZone: TZ });
+    return s.charAt(0).toUpperCase() + s.slice(1);
+  })();
+  $('year').textContent = new Date().getFullYear();
+
+  load();
+  setInterval(load, 10 * 60 * 1000);
+
+  /* ---------- cadastro ---------- */
+  // TROQUE pela URL real do seu webhook n8n.
+  var SIGNUP_WEBHOOK_URL = 'https://webhook.linikerwambaster.com.br/webhook/cadastro-panorama';
+
+  function validEmail(v){ return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v); }
+
+  function signup(email, honeypot, btn){
+    if(honeypot) return Promise.resolve(true);           // robô: finge que deu certo
+    if(btn) btn.disabled = true;
+    return fetch(SIGNUP_WEBHOOK_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        action: 'signup',
+        email: email,
+        origem: 'lp-panorama',
+        pagina: location.href,
+        consentimento: true,
+        politica: location.origin + '/privacidade.html',
+        data: new Date().toISOString()
+      })
+    }).then(function(r){
+      if(!r.ok) throw new Error('falha');
       window.dataLayer = window.dataLayer || [];
       window.dataLayer.push({ event: 'lead_cadastro', email_domain: email.split('@')[1] || '' });
-
-      localStorage.setItem('panorama_cadastrado', '1');
-      if(formEl) formEl.style.display = 'none';
-      if(successEl) successEl.style.display = 'block';
-
-    }catch(err){
-      if(errorEl) errorEl.style.display = 'block';
-      console.error('Erro no cadastro:', err);
-    }
+      try { localStorage.setItem('panorama_cadastrado', '1'); } catch(e){}
+      return true;
+    }).catch(function(){
+      if(btn) btn.disabled = false;
+      return false;
+    });
   }
 
-  // Form principal
-  const formMain = document.getElementById('signup-form-main');
+  var formMain = $('signup-form-main');
   formMain.addEventListener('submit', function(e){
     e.preventDefault();
-    const email = document.getElementById('email-main').value.trim();
-    handleSignup(
-      email,
-      formMain,
-      document.getElementById('form-success-main'),
-      document.getElementById('form-error-main')
-    );
+    var email = $('email-main').value.trim();
+    var err = $('form-error-main');
+    err.style.display = 'none';
+    if(!validEmail(email)){ err.style.display = 'block'; return; }
+    signup(email, $('hp-main').value, formMain.querySelector('button')).then(function(ok){
+      if(ok){ formMain.style.display = 'none'; $('form-success-main').style.display = 'block'; }
+      else { err.style.display = 'block'; }
+    });
   });
 
-  // Form sticky
-  const formSticky = document.getElementById('signup-form-sticky');
+  var formSticky = $('signup-form-sticky');
   formSticky.addEventListener('submit', function(e){
     e.preventDefault();
-    const email = document.getElementById('email-sticky').value.trim();
-    handleSignup(email, formSticky, null, null);
-    // feedback simples inline pro sticky
-    formSticky.innerHTML = '<span style="font-weight:700; padding:10px 0;">✓ Cadastro confirmado!</span>';
+    var email = $('email-sticky').value.trim();
+    if(!validEmail(email)){ $('email-sticky').focus(); return; }
+    signup(email, '', formSticky.querySelector('button')).then(function(ok){
+      if(ok){ formSticky.replaceChildren(el('strong', null, '✓ Cadastro recebido!')); }
+      else { formSticky.querySelector('button').textContent = 'Tentar de novo'; }
+    });
   });
 
-  // Barra sticky: mostra ao rolar, some se já cadastrado ou fechado
-  const stickyBar = document.getElementById('sticky-bar');
-  const stickyClose = document.getElementById('sticky-close');
-  let stickyDismissed = sessionStorage.getItem('panorama_sticky_closed') === '1';
-  let jaCadastrado = localStorage.getItem('panorama_cadastrado') === '1';
-
+  /* barra fixa: aparece depois de rolar, some se já cadastrado ou fechada */
+  var bar = $('sticky-bar');
+  var dismissed = false, done = false;
+  try { dismissed = sessionStorage.getItem('panorama_sticky_closed') === '1'; done = localStorage.getItem('panorama_cadastrado') === '1'; } catch(e){}
+  var signupSec = $('assinar');
   window.addEventListener('scroll', function(){
-    if(stickyDismissed || jaCadastrado) return;
-    if(window.scrollY > 700){
-      stickyBar.classList.add('show');
-    }
+    if(dismissed || done) return;
+    var r = signupSec.getBoundingClientRect();
+    var pastForm = r.bottom < 0;
+    bar.classList.toggle('show', pastForm && window.scrollY > 700);
+  }, { passive: true });
+  $('sticky-close').addEventListener('click', function(){
+    bar.classList.remove('show'); dismissed = true;
+    try { sessionStorage.setItem('panorama_sticky_closed', '1'); } catch(e){}
   });
-
-  stickyClose.addEventListener('click', function(){
-    stickyBar.classList.remove('show');
-    stickyDismissed = true;
-    sessionStorage.setItem('panorama_sticky_closed', '1');
-  });
+})();
 </script>
-
 </body>
 </html>
